@@ -1,0 +1,44 @@
+project:
+  type: book
+
+book:
+  title: "R para principiantes (segunda edición)"
+  author: "Juan Bosco Mendoza Vega"
+  date: "xx/xx/2025"
+  chapters:
+    - index.qmd
+    - 01-intro.qmd
+    - 02-instalacion.qmd
+    - 03-conceptos-basicos.qmd
+    - 04-datos.qmd
+    - 05-operadores.qmd
+    - 06-estructuras-datos.qmd
+    - 07-subconjuntos.qmd
+    - 08-funciones.qmd
+    - 09-estructuras-control.qmd
+    - 10-apply.qmd
+    - 11-importar-y-exportar.qmd
+    - 12-graficas.qmd
+    - 13-conclusion.qmd
+    - references.qmd
+  repo-url: https://github.com/jboscomendoza/
+
+bibliography: references.bib
+
+execute:
+  echo: true
+
+format:
+  html:
+    theme: simplex
+    respect-user-color-scheme: true
+    linestretch: 1.5
+    toc: true
+    highlight-style: github
+    css: style.css
+    
+  pdf:
+    documentclass: scrreprt
+
+
+

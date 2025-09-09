@@ -1,0 +1,40 @@
+# Prefacio {.unnumbered}
+
+![](images/r-principiantes-cover.png){width="50%" fig-align="center"}
+
+**Propósito del libro**
+
+*R para principiantes* pretende ser un materal introductorio al lenguaje de programación R, dirigído a personas que nunca han usado R o ningún otro lenguaje de programación, ni tiene conocimiento previo de probabilidad y estadística.
+
+Este libro tiene como propósito que adquieras los fundamentos del uso de R como un lenguaje de programación, desde sus conceptos más elementales, hasta la definición de funciones y generación de gráficos.
+
+No son objetivos de este libro que aprendas probabilidad y estadística, ni las aplicaciones espécificas de estas disciplinas, tales como son *data science*, aprendizaje automático, econometría, psicometría, bioestadística u otros.
+
+En el [Capítulo @sec-conclusion] de este libro se presenta una lista de libros y otros materiales que puedes consultar en caso de tener interés por alguno de estos temas.
+
+Se espera que al concluir este libro:
+
+-   conozcas las características principales de R
+-   identifiques operaciones, tipos y estructuras de datos
+-   utilices los tipos y estructuras de datos en operaciones
+-   definas sus propias funciones
+-   importes y exportes datos
+-   generes y exportes gráficos
+
+**Acerca del autor**
+
+*Juan Bosco Mendoza Vega* es usuario de R desde el 2014.
+
+Es maestro en psicología por la Universidad Nacional Autónoma de México (UNAM). Especialista en evaluación educativa, interesado en la evaluación del aprendizaje y de programas educativos, así como en los usos de métodos cuantitativos para el diseño, análisis y difusión de resultados de evaluación.
+
+Ha colaborado en los Comités Interinstitucionales para la Evaluación de la Educación Superior (CIEES), como analista y elaborador de informes de evaluación de programas educativos de educación superior de diferentes universidad públicas y privadas del país.
+
+Desde el 2014 trabaja en el Instituto Nacional para la Evaluación de la Educación, en donde actualmente se ha desempeñado en las áreas de Evaluación de Resultados Educativos y de Evaluación de la Oferta Educativa.
+
+Puedes visitar el sitio personal del autor en el siguiente enlace:
+
+- <http://boscomendoza.com>
+
+Tambien puedes encontrar el repositorio público de Github del autor en el siguiente enlace:
+
+- <https://github.com/jboscomendoza>
