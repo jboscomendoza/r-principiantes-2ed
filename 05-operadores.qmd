@@ -276,21 +276,15 @@ FALSE > "HIGO"
 
 ## Operadores lógicos
 
-Los operadores lógicos son usados para operaciones de **álgebra Booleana**, es decir, para describir relaciones lógicas, evaluándolas como verdaderas (`TRUE`) o falsas (`FALSE`).
+Los operadores lógicos son usados para operaciones de **álgebra Booleana**, es decir, para describir relaciones lógicas, evaluándolas como verdaderas (`TRUE`) o falsas (`FALSE`). 
 
 Operador    | Nombre   |Operación                 | Ejemplo        | Resultado
 ----        |---       |----                      |----            |----
-`a | b`     | OR (o)   | a **o** b es verdadero   | `TRUE | FALSE` | `TRUE`
-`a & b`     | AND (y)  | a **y** b son verdaderos | `TRUE & FALSE` | `FALSE`
-`!a`        | NOT (no, negación) | a **no** es verdadero    | `!TRUE` | `FALSE`
+`a | b`     | O (OR)   | a **o** b es verdadero   | `TRUE | FALSE` | `TRUE`
+`a & b`     | Y (AND)  | a **y** b son verdaderos | `TRUE & FALSE` | `FALSE`
+`!a`        | NO (NOT) | a **no** es verdadero    | `!TRUE`        | `FALSE`
 
-Además tenemos la función `isTRUE()`.
-
-Función     | Operación                      | Ejemplo        | Resultado
----         |---                             |---             |---
-`isTRUE(a)` | a **es** verdadero, afirmación | `isTRUE(TRUE)` | `TRUE`
-
-Estos operadores siempre devuelven `TRUE` o `FALSE`, sin importar el tipo de datos en los que se opere.
+Estos operadores siempre devuelven `TRUE` o `FALSE`, sin importar el tipo de datos con los que se opere.
 
 Los operadores `|` y `&` siguen estas reglas:
 
@@ -299,23 +293,110 @@ Los operadores `|` y `&` siguen estas reglas:
 * `|` solo devuelve `FALSE` si ambos datos son evaluados como `FALSE`
 * `&` devuelve `FALSE` si cualquiera de los datos es evaluado como `FALSE`
 
+Además tenemos la función `isTRUE()` que comprueba si un valor es `TRUE`.
 
-Estos operadores pueden ser usados con estos con datos de tipo **numérico**, **lógico** y **complejo**. Al igual que con los operadores relacionales, los operadores lógicos siempre devuelven `TRUE` o `FALSE`.
+Función     | Operación                      | Ejemplo        | Resultado
+---         |---                             |---             |---
+`isTRUE(a)` | a **es** verdadero, afirmación | `isTRUE(TRUE)` | `TRUE`
 
-Para realizar operaciones lógicas, todos los valores numéricos y complejos distintos a `0` son coercionados a `TRUE`, mientras que `0` siempre es coercionado a `FALSE`. 
+### Operadores lógicos y evaluación de expresiones
 
-Por ejemplo, `5 | 0` resulta en `TRUE` y `5 & FALSE` resulta en `FALSE`. Podemos comprobar lo anterior con la función `isTRUE()`.
-```{r, echo=TRUE}
-5 | 0
+En un sentido estricto, al usar estos operadores estamos combinando dos valor booleanos, pero una forma de entender estos operadores es que evaluan la veracidad ("truthiness", en inglés) de dos objetos al mismo tiempo.
 
-5 & 0
+Cuando nuestros objetos son datos son de tipo lógico, esta evaluación es muy transparente, `TRUE | FALSE` nos devuelve `TRUE` mientras que `TRUE | FALSE` nos devuelve `TRUE`. Sin embargo, como podemos usar estos operadores con cualquier tipo de datos, estos primero se evaluan a `TRUE` or `FALSE` y lo mismo es cierto para el resultado de otras operaciones o funciones. 
 
-isTRUE(0)
+Para explicar esto un poco más, supongamos que tenemos dos mascotas, una llamada Menchi y la otra Tlaloc, que tienen los atributos que se muestran en la siguiente tabla.
 
-isTRUE(5)
-```
+Atributo         | Menchi 🐕 | Tlaloc 🐈
+---              |---        |---
+Clase            | Mamífero  | Mamífero
+Especie          | Perro     | Gato
+Sexo             | Hembra    | Macho
+Número de patas  | 4         | 4
+Pelaje           | Corto     | Largo
 
-Estos operadores se pueden combinar para expresar relaciones complejas.
+Vamos a evaluar algunas aformaciones sobre Menchi y Tlaloc.
+
+* Menchi Y (`&`) Tlaloc son Mamíferos
+
+Tenemos que evaluar el atributo "Clase" de cada uno de ellos
+
+* ¿La Clase de Menchi es Mamifero? Verdadero (`TRUE`)
+* ¿La Clase de Tlaloc es Mamifero? Verdadero (`TRUE`)
+
+Entonces:
+
+* Menchi == `TRUE`
+* Tlaloc == `TRUE`
+
+Que podríamos representar así:
+
+* `TRUE & TRUE` 
+
+Que nos da como resultado `TRUE`. Es decir, es Verdadero que Menchi y Tlaloc son Mamíferos.
+
+Evaluémos una segunda afirmación:
+
+* Menchi Y (`&`) Tlaloc son Perros
+
+De nuevo, evaluamos el atributo correspondiente de ambos:
+
+* ¿La Especie de Menchi es Perro? Verdadero (`TRUE`)
+* ¿La Especie de Tlaloc es Gato? Falso (`FALSE`)
+
+Entonces:
+
+* Menchi == `TRUE`
+* Tlaloc == `FALSE`
+
+Y, por lo tanto:
+
+* `TRUE & FALSE`
+
+Que nos da como resultado `FALSE`. Es decir, es Falso que Menchi y Tlaloc son Perros.
+
+Cambiemos nuestra afirmación:
+
+* Menchi O (`|`) Tlaloc son Perros
+
+No suena muy natural si lo decimos de esta manera. Cambiemos la formulación:
+
+* Menchi O (`|`) Tlaloc es un Perro
+
+Como ya vimos, para que el operador `|` (O, OR) devuelva `TRUE`, basta con que cualquier elementos sea `TRUE`, así que podemos expresar esta afirmación de esta manera.
+
+Ya conocemos el resultado de evaluar el atributo Especia de Menchi y Tlaloc.
+
+* Menchi == `TRUE`
+* Tlaloc == `FALSE`
+
+Por lo tanto:
+
+* `TRUE | FALSE`
+
+Que nos da como resultado `TRUE`. Es decir, es Verdadero que Menchi o Tlaloc es un Perro.
+
+Finalmente, tenemos una afirmación que usa `!` (NO, NOT).
+
+* Menchi No (`!`) es Macho
+
+En este ejemplo, esta afirmación es fácil de evaluar, pues sólo tenemos que mirar el atributo correspondiente para llegar al resultado `TRUE`, es Verdadero que Menchi No es Macho.
+
+Pero podemos combinar esta afirmación otra, sobre Tlaloc.
+
+* Menchi No (!) es Macho Y (`&`) Tlaloc es Macho
+
+Sabemos que es Verdadero que Tlaloc es Macho, por lo tanto:
+
+* `TRUE & TRUE` 
+
+Que nos da como resultado `TRUE`, es Verdadero que Menchi No es Macho y Tlaloc es Macho.
+
+Este último ejemplo es una pequeña muestra de lo complejas que pueden ser las operaciones lógicas. En la siguiente sección veremos cómo se combinan con operaciones relacionales.
+
+### Operadores lógicos con operadores relacionales
+
+Los operadores se pueden combinar para expresar relaciones complejas.
 
 Por ejemplo, la negación `FALSE` Y `FALSE` dará como resultado `TRUE`.
 ```{r}
@@ -324,9 +405,88 @@ Por ejemplo, la negación `FALSE` Y `FALSE` dará como resultado `TRUE`.
 
 También podemos combinar operadores lógicos y relacionales. dado que esto últimos dan como resultado `TRUE` y `FALSE`.
 
-
 ```{r}
 (4 < 6) | (6 == 6)
+```
+
+### Operadores lógicos con datos enteros y numéricos
+
+Como revisamos en la [Sección @sec-datos-coercion], los datos enteros y numéricos pueden coercionados a lógicos. Todos los valores enteros y numéricos distintos a `0` son coercionados a `TRUE`, mientras que `0` siempre es coercionado a `FALSE`.
+
+Por ejemplo, `5 | 0` devuelve `TRUE` porque el número `5` es coercionado a `TRUE` y `0` es conercionado a `FALSE.
+
+```{r coercion_numerico}
+5 | 0
+```
+
+Podemos comprobar lo anterior con la función `isTRUE()`.
+
+```{r coercion_istrue}
+isTRUE(0)
+isTRUE(5)
+```
+
+Por lo tanto, `5 | FALSE` devuelve `TRUE` y `0 & TRUE` devuelve `FALSE`.
+
+```{r}
+5 | FALSE
+0 & FALSE
+```
+
+### Operadores lógicos con cadenas de texto
+
+Si intentamos una operación lógica con una cadena de texto obtenemos siempre un error.
+
+```{r}
+#| error: true
+"TRUE" & FALSE
+"FALSE" | TRUE
+"a" | FALSE
+"Z" & TRUE
+!"casa"
+```
+
+### Operadores lógicos con NA y NULL
+
+Al usar el operador `|` (OR), si cualquiera de los datos es `TRUE`, obtenemos `TRUE` aunque el otro dato sea `NA` o `NULL`
+
+```{r OR_NA_NULL_TRUE}
+NA | TRUE
+NULL | TRUE
+```
+
+Pero si un dato es `NA` y el otro es `FALSE`, obtenemos `NA`.
+
+```{r OR_NA_NULL_FALSE}
+NA | FALSE
+```
+
+Y si un dato es `NULL` y el otro es `FALSE`, obtenemos un vector lógico vacío.
+
+```{r OR_NULL_FALSE}
+NULL | FALSE
+```
+
+Lo anterior aplica para el caso de `&` (AND), si uno de los datos es `NA`, obtenemos `NA`, y si uno es `NULL`, obtenemos un vector lógico vacío.
+
+```{r AND_NA_NULL}
+NA & TRUE
+NA & FALSE
+NULL & TRUE
+NULL & FALSE
+```
+
+Si negamos `NA` con `!` (NOT) obtenemos `NA`.
+
+```{r NOT_NA}
+!NA
+```
+
+Pero si negamos `NULL` se nos devuelve un error.
+
+```{r NOT_NULL}
+#| error: true
+!NULL
 ```
 
 ## Operadores de asignación
