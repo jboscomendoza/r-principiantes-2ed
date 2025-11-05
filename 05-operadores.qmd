@@ -1,5 +1,5 @@
 # Operadores {#sec-operadores}
-Los operadores son los símbolos que, como nombre lo anticipa, le indican a R que se debe realizar un tipo de operación específica. En todos los lenguajes de programación, los operadores son sumamente importantes, al combinarlos con los datos y sus estructuras es que logramos hacer la mayor parte de nuestro trabajo.
+Los operadores, como su nombre los indica, son símbolos usados por R para realizar diferentes tipos de operaciones. En todos los lenguajes de programación, los operadores son sumamente importantes, al combinarlos con los datos y sus estructuras es como logramos hacer la mayor parte de nuestro trabajo.
 
 Los tipos de operadores principales en R son los siguientes:
 
@@ -8,11 +8,10 @@ Los tipos de operadores principales en R son los siguientes:
 * Lógicos
 * De asignación
 
-Familiarizarnos con los operadores nos dará herramientas para manipular y transformar datos. 
 
-Revisemos los diferentes tipos de operador.
+Revisemos sus características.
 
-## Operadores aritméticos
+## Operadores aritméticos {#sec-operadores-aritmeticos}
 
 Este tipo de operador es usado para operaciones aritméticas. En R tenemos disponibles los siguientes operadores, que corresponden a las operaciones aritméticas básicas.
 
@@ -78,7 +77,7 @@ NULL + NA
 "64.3" + NULL
 ```
 
-### La división entera
+### La división entera {#sec-operadores-aritmeticos-divisionentera}
 
 La división entera o **módulo** es un caso particular de la división, que en lugar de devolver el cociente de la operación, nos devuelve el residuo.
 
@@ -106,7 +105,7 @@ Por lo tanto, al hacer la división entera de 5 entre 2, el resultado será 1, e
 5 %% 2
 ```
 
-## Operadores relacionales
+## Operadores relacionales {#sec-operadores-relacionales}
 
 Los operadores lógicos son usados para hacer comparaciones y siempre devuelven como resultado los valores lógicos `TRUE` o `FALSE` (verdadero o falso, respectivamente).
 
@@ -119,7 +118,7 @@ Operador| Comparación           | Ejemplo   | Resultado
 `==`    | Exactamente igual que | `5 == 3`  | `FALSE`
 `!=`    | No es igual que       | `5 != 3`  | `TRUE`
 
-### Comparación de datos enteros o numéricos
+### Comparación de datos enteros o numéricos {#sec-operadores-relacionales-numero}
 
 Al comparar datos enteros o numéricos ocurre una comparación de magnitudes.
 
@@ -140,7 +139,7 @@ Al comparar datos enteros o numéricos ocurre una comparación de magnitudes.
 16 != 8.5
 ```
 
-### Comparación de cadenas de texto
+### Comparación de cadenas de texto {#sec-operadores-relacionales-texto}
 
 Cuando usamos los operadores `>`, `>=`, `<` y `<=` con cadenas de texto, se hace una comparación por orden alfabético. 
 
@@ -180,7 +179,7 @@ Las comparaciones son sencibles a las letras mayúsculas y minúsculas. Las letr
 "barco" > "barCo"
 ```
 
-### Comparación de factores
+### Comparación de factores {#sec-operadores-relacionales-factor}
 
 Si intentamos comparar dos factores se nos devuelve un valor `NA` y una advertencia de que la operación de relación no tiene significado para factores.
 
@@ -198,7 +197,7 @@ vector_factores
 vector_factores[1] > vector_factores[2]
 ```
 
-### Comparación con datos lógicos
+### Comparación con datos lógicos {#sec-operadores-relacionales-logico}
 
 Al comparar valores lógicos, `TRUE` siempre es mayor que `FALSE`.
 
@@ -216,7 +215,7 @@ TRUE == FALSE
 TRUE != FALSE
 ```
 
-### Comparación con NA y NULL
+### Comparación con NA y NULL {#sec-operadores-relacionales-nanull}
 
 Cualquier comparación con un dato `NA` nos devuelve `NA`, excepto al comparar con `NULL`.
 
@@ -235,7 +234,7 @@ NULL < TRUE
 NULL < NA
 ```
 
-### Comparación con datos de diferentes tipos
+### Comparación con datos de diferentes tipos {#sec-operadores-relacionales-otros}
 
 Si comparamos un dato numérico con una cadena de texto, el dato entero o numérico es coercionado a una cadena de texto y se seguirán las reglas de comparación para cadenas.
 
@@ -265,7 +264,7 @@ FALSE > -24
 
 Si comparamos un valor lógico con una cadena de texto, este será coercionado a una cadena de texto, así que se compararán `"TRUE"` y `"FALSE"`, con las reglas de comparación para cadenas de texto.
 
-```{r}
+```{r comparar_cadenas}
 TRUE == "TRUE"
 FALSE == "FALSE"
 TRUE > "SOGA"
@@ -274,7 +273,7 @@ FALSE > "ETAPA"
 FALSE > "HIGO"
 ```
 
-## Operadores lógicos
+## Operadores lógicos {#sec-operadores-logicos}
 
 Los operadores lógicos son usados para operaciones de **álgebra Booleana**, es decir, para describir relaciones lógicas, evaluándolas como verdaderas (`TRUE`) o falsas (`FALSE`). 
 
@@ -299,7 +298,7 @@ Función     | Operación                      | Ejemplo        | Resultado
 ---         |---                             |---             |---
 `isTRUE(a)` | a **es** verdadero, afirmación | `isTRUE(TRUE)` | `TRUE`
 
-### Operadores lógicos y evaluación de expresiones
+### Operadores lógicos y evaluación de expresiones {#sec-operadores-logicos-expresiones}
 
 En un sentido estricto, al usar estos operadores estamos combinando dos valor booleanos, pero una forma de entender estos operadores es que evaluan la veracidad ("truthiness", en inglés) de dos objetos al mismo tiempo.
 
@@ -392,24 +391,41 @@ Sabemos que es Verdadero que Tlaloc es Macho, por lo tanto:
 
 Que nos da como resultado `TRUE`, es Verdadero que Menchi No es Macho y Tlaloc es Macho.
 
-Este último ejemplo es una pequeña muestra de lo complejas que pueden ser las operaciones lógicas. En la siguiente sección veremos cómo se combinan con operaciones relacionales.
+Aun hay otras que puedes intentar identificar como ejercicio con las características de Menchi y Tlaloc. Además este último ejemplo es una pequeña muestra de lo complejas que pueden ser las operaciones lógicas y en la siguiente sección veremos cómo se combinan con operaciones relacionales.
 
-### Operadores lógicos con operadores relacionales
+### Operadores lógicos con operadores relacionales {#sec-operadores-logicos-relaciones}
 
-Los operadores se pueden combinar para expresar relaciones complejas.
+Podemos combinar los operadores lógicos con operadores relacionales para evaluar expresiones complejas.
 
-Por ejemplo, la negación `FALSE` Y `FALSE` dará como resultado `TRUE`.
-```{r}
-!(FALSE | FALSE)
+Como el resultado de una operación relacional es `TRUE` or `FALSE`, podemos evaluar expresiones como la siguiente.
+
+```{r logicos_relacionales_1}
+(4 < 6) & (6 > 4)
 ```
 
-También podemos combinar operadores lógicos y relacionales. dado que esto últimos dan como resultado `TRUE` y `FALSE`.
+Obtenemos como resultado `TRUE`, porque ambos elementos son verdaderos.
 
-```{r}
-(4 < 6) | (6 == 6)
+```{r logicos_relacionales_2}
+4 < 6
+6 > 4
 ```
 
-### Operadores lógicos con datos enteros y numéricos
+Por supuesto, podemos tener expresiones con datos no numéricos y operadores relacionales.
+
+```{r relación_otros_datos_1}
+("Pluma" == "Lápiz") | ("Lápiz" != "Hoja")
+```
+
+Obtenemos `TRUE` porque al menos uno de los dos elementos es verdadero.
+
+```{r relación_otros_datos_2}
+"Pluma" == "Lápiz"
+"Lápiz" != "Hoja"
+```
+
+Hemos usado paréntesis para establecer el orden en que deben ocurrir las operaciones, esto lo revisaremos en la [Sección @sec-operadores-orden-operaciones] de este mismo capítulo.
+
+### Operadores lógicos con datos enteros y numéricos {#sec-operadores-logicos-numero}
 
 Como revisamos en la [Sección @sec-datos-coercion], los datos enteros y numéricos pueden coercionados a lógicos. Todos los valores enteros y numéricos distintos a `0` son coercionados a `TRUE`, mientras que `0` siempre es coercionado a `FALSE`.
 
@@ -433,11 +449,11 @@ Por lo tanto, `5 | FALSE` devuelve `TRUE` y `0 & TRUE` devuelve `FALSE`.
 0 & FALSE
 ```
 
-### Operadores lógicos con cadenas de texto
+### Operadores lógicos con cadenas de texto {#sec-operadores-logicos-texto}
 
 Si intentamos una operación lógica con una cadena de texto obtenemos siempre un error.
 
-```{r}
+```{r logico_error}
 #| error: true
 "TRUE" & FALSE
 "FALSE" | TRUE
@@ -446,7 +462,7 @@ Si intentamos una operación lógica con una cadena de texto obtenemos siempre u
 !"casa"
 ```
 
-### Operadores lógicos con NA y NULL
+### Operadores lógicos con NA y NULL {#sec-operadores-logicos-nanull}
 
 Al usar el operador `|` (OR), si cualquiera de los datos es `TRUE`, obtenemos `TRUE` aunque el otro dato sea `NA` o `NULL`
 
@@ -489,38 +505,58 @@ Pero si negamos `NULL` se nos devuelve un error.
 !NULL
 ```
 
-## Operadores de asignación
-Este es probablemente el operador más importante de todos, pues nos permite asignar datos a variables.
+## Operadores de asignación {#sec-operadores-asignacion}
+
+Este es probablemente el tipo de operador más importante de todos porque nos permite asignar datos y funciones a variables para después trabajar con ellas.
+
+Estos operadores asignan el valor que se encuentra a su derecha a la variable que se encuentra a su izquierda.
 
 Operador  | Operación   
 ----      |----         
 `<-`      | Asigna un valor a una variable
 `=`       | Asigna un valor a una variable
 
-Aunque podemos usar el signo igual para una asignación, a lo largo de este libro utilizaremos `<-`, por ser característico de R y fácil de reconocer visualmente.
+A lo largo de este libro utilizaremos `<-` para asignaciones por ser característico de R y el que más frecuentemente encontraremos en código de otras personas. Además, tiene la ventaja de que es muy expresivo visualmente.
 
-Después de realizar la operación de asignación, podemos usar el nombre de la variable para realizar operaciones con ella, como si fuera del tipo de datos que le hemos asignado. Si asignamos un valor a una variable a la que ya habíamos asignado datos, nuestra variable conserva el valor más reciente.
+Veamos una asignación. Asignaremos el valor `1` a la variable `uno`.
 
-Además, esta operación nos permite "guardar" el resultado de operaciones, de modo que los podemos recuperar sin necesidad de realizar las operaciones otra vez. Basta con llamar el nombre de la variable en la consola
+```{r asignación_básica_2}
+uno <- 1
+```
 
-En este ejemplo, asignamos valores a las variables `estatura` y `peso`.
-```{r}
+Si llamamos a la variable `uno` nos es devuelto el valor que tiene asignado.
+
+```{r asignación_basica_1}
+uno
+```
+
+Después de realizar la operación de asignación podemos usar el nombre de la variable para realizar operaciones con ella, como si fuera del tipo de datos que le hemos asignado. Si asignamos un valor a una variable a la que ya habíamos asignado datos, nuestra variable conservará el valor más reciente.
+
+Esta operación también nos permite "guardar" el resultado de operaciones, de modo que los podemos recuperar sin necesidad de ejecutar las operaciones otra vez. Es suficiente llamar el nombre de la variable para que nos devuelva los valores que ha "guardado".
+
+Ahora asignaremos valores numéricos a las variables `estatura` y `peso`.
+
+```{r estatura_peso_1}
 estatura <- 1.73
 peso <- 83
 ```
-Llamamos a sus valores asignados
-```{r}
+
+Llamamos a las variables para que nos sean devueltos sus valores asignados.
+
+```{r estatura_peso_2}
 estatura
 peso
 ```
 
-Usamos los valores asignados para realizar operaciones.
-```{r}
+Ahora podemos usar estas variables para realizar operaciones. Dividimos peso entre estatura elevada al cuadrado.
+
+```{r estatura_peso_3}
 peso / estatura ^ 2
 ```
 
-Cambiamos el valor de una variable a uno nuevo y realizamos operaciones
-```{r}
+Cambiamos el valor de una variable a uno nuevo y realizamos operaciones, mostrando que se ha conservado el último valor asignado a ellas.
+
+```{r estatura_peso_4}
 peso <- 76
 
 peso
@@ -533,15 +569,21 @@ peso <- 48
 peso / estatura ^ 2
 ```
 
-Asignamos el resultado de una operación a una variable nueva.
-```{r}
-bmi <- peso / estatura ^ 2
+También podemos asignar el resultado de una operación a una variable nueva, en este caso una llamada `imc`, por "índice de masa corporal".
 
-bmi
+```{r estatura_peso_5}
+imc <- peso / estatura ^ 2
+
+imc
 ```
 
-Como podrás ver, es posible asignar a una variable valores de otra variable o el resultado de operaciones con otras variables.
-```{r, echo=TRUE}
+De esta manera ya tenemos una forma sencilla para calcular el índice de masa corporal de una persona.
+
+También podemos observar que es posible asignarle a una variable los valores de otra variable o el resultado de operaciones hechas con otras variables, lo cual nos abre la posibilidad de operaciones complejas.
+
+Veamos otro ejemplo, en el que hacemos varias operaciones para obtener el valor de rapidez.
+
+```{r rapidez}
 velocidad_inicial <- 110
 velocidad_final <- 185
 
@@ -551,15 +593,56 @@ tiempo_final <- 15
 variacion_velocidad <- velocidad_final - velocidad_inicial
 variacion_tiempo <- tiempo_final - tiempo_inicial
 
-variacion_velocidad / variacion_tiempo
+rapidez <- variacion_velocidad / variacion_tiempo
+
+rapidez
 ```
 
-## Orden de operaciones
-En R, al igual que en matemáticas, las operaciones tienen un orden de evaluación definido. 
+Por supuesto, podemos asignar `NA` o `NULL` a variables.
 
-Cuanto tenemos varias operaciones en una misma expresión, estas no ocurren todas al mismo tiempo, sino en secuencia. 
+```{r asignacion_na_null}
+variable_na <- NA
+variable_na
+variable_null <- NULL
+variable_null
+```
 
-En la siguiente tabla se presenta el orden en que ocurren las operaciones que hemos revisado en este capítulo, que incluye a las operaciones aritméticas, relacionales, lógicas y de asignación.
+No podemos asignar un valor a valor, si lo intentamos nos es devuelto un error.
+
+```{r error_asignación}
+#| error = TRUE
+33 <- TRUE
+TRUE <- 77
+NA <- 94.1
+```
+
+Sin embargo, si intentamos asignar un valor a una cadena de texto, no se nos devuelve un error ni una advertencia.
+
+```{r asignacion_texto_1}
+"variable_texto" <- 512
+```
+
+Pero si llamamos a `"variable_texto"` nos es devuelto `"variable_texto"`.
+
+```{r asignacion_texto_2}
+"variable_texto"
+```
+
+¿Qué ha ocurrido?
+
+En realidad, la asignación sí ha ocurrido, pero a una variable llamada `variable_texto`, no a la cadena de texto.
+
+```{r asignacion_texto_3}
+variable_texto
+```
+
+Esto se debe a la forma en que R evalúa los nombres de variables y explicarlo va más allá del alcance de un texto para principiantes, así que sólo recordemos que este comportamiento inesperado existe para evitarnos sorpresas en el futuro.
+
+## Orden de operaciones {#sec-operadores-orden}
+
+En R, al igual que en matemáticas, las operaciones tienen un orden o jerarquía de evaluación definido. Cuanto tenemos varias operaciones en una misma expresión, estas no ocurren todas al mismo tiempo, sino en secuencia. 
+
+En la siguiente tabla se presenta el orden en que ocurren las operaciones que hemos revisado en este capítulo.
 
 Orden |Operación 
 ---   |---
@@ -572,16 +655,98 @@ Orden |Operación
 7     | `|`
 8     | `<-`
 
-Si deseamos que una operación ocurra antes que otra, rompiendo este orden de evaluación, usamos paréntesis.
+Si tenemos el mismo operador varias veces en una misma expresión, estos se evalúan de izquierda a derecha.
 
-```{r parentesis}
-# Orden de operaciones regular, multiplicación y después suma
-1 + 2 * 3
-# Indicamos que ocurra primero la suma y después la multiplicación
-(1 + 2) * 3
+En el siguiente ejemplo, primero se resta `10` a `20` y después `5` al resultado de esa operación.
+
+```{r}
+20 - 10 - 5
 ```
 
-También podemos usar paréntesis anidados y las operaciones ocurrirán del paréntesis con el nivel más profundo de anidación, hacia el menos profundo.
+Si agregamos una multiplicación a la expresión, primero ocurre la multiplicación de `10` por `5`, después la resta de `20` menos su resultado y, finalmente, el resultado de esa operación menos `5`.
+
+```{r}
+20 - 10 * 2 - 5
+```
+
+Si en una misma expresión tenemos una multiplicación (`*`) y una división (`/`), se evalúan de izquieda a derecha. 
+
+En este ejemplo, primero la multiplicación y después de la división.
+
+```{r orden_mult_div_1}
+4 * 3 / 2
+```
+
+Y en este ejemplo, primero la división y luego la multiplicación.
+
+```{r orden_mult_div_2}
+4 / 3 * 2
+```
+
+Lo mismo aplica para la suma (`+`) y la resta (`-`).
+
+Primero la suma y después de la resta.
+
+```{r orden_suma_resta_1}
+4 + 3 - 2
+```
+
+Primero la resta y después la suma.
+
+```{r orden_suma_resta_2}
+4 - 3 + 2
+```
+
+En el caso de los operadores de comparación, si una expresión tiene más de un símbolo de este tipo, nos es devuelto un error, a menos que usemos paréntesis.
+
+```{r orden_comparacion_1}
+#| error: true
+23 > 26 == 28
+
+63.4 != 52.6 <= 43.2 
+```
+
+El orden de evaluación de los operadores lógicos puede ser un poco desafiante al principio, como en expresiones como la siguiente.
+
+```{r orden_logicos_1}
+#| eval: false
+FALSE | FALSE & TRUE & TRUE | TRUE
+```
+
+Pero si recordamos el orden de operaciones y que símbolos iguales se evalúan de izquierda a derecha, podemos anticipar que el resultado final es `TRUE`, porque:
+
+1. `FALSE & TRUE` es `FALSE`, entonces
+2. `FALSE & TRUE` es `FALSE`, entonces
+3. `FALSE | FALSE` es `FALSE`, entonces
+4. `FALSE | TRUE` es `TRUE`
+
+Comprobemos lo anterior.
+
+```{r orden_logico_2}
+FALSE | FALSE & TRUE & TRUE | TRUE
+```
+
+Por supuesto, podemos usar paréntesis para facilitar la lectura, además de para establecer un orden de operación propio.
+
+
+### Paréntesis {#sec-operadores-orden-parentesis}
+
+Si deseamos que una operación ocurra antes que otra, rompiendo el orden definido de evaluación, o para hacerla la más fácil de leer, usamos paréntesis.
+
+En el orden de operaciones definido, ocurre primero la multiplicación y después suma
+
+```{r parentesis_simple_1}
+1 * 2 + 3
+```
+
+Si encerramos entre paréntesis la suma, esta ocurrira primero y después la multiplicación
+
+```{r parentesis_simple_2}
+# Indicamos que ocurra primero la suma y después la multiplicación
+1 * (2 + 3)
+```
+
+También podemos usar paréntesis anidados, de este modo las operaciones ocurrirán del paréntesis con el nivel más profundo de anidación, hacia el nivel menos profundo.
 
 * `(((ocurre_primero)ocurre_segundo)ocurre_tercero)`
 
@@ -603,4 +768,11 @@ Podemos cambiar cómo anidamos los paréntesis,  para que primero ocurra la pote
 (2 * (4 - (5 ^ 3)))
 ```
 
+Si tenemos paréntesis tanto en el lado izquierdo como en el derecho de una operador, las operaciones dentro de los paréntesis son evaluadas primero y después las operaciones fuera de ellos.
 
+```{r}
+(4 - 2) * (8 - 4)
+(4 / 2) ^ (8 / 4)
+```
+
+Este ha sido un capítulo largo, pero los operadores es un aspecto fundamental para escribir código, no solo en R, sino en cualquier lenguaje de programación, por lo que vale la pena dedicar tiempo para comprenderlos.
