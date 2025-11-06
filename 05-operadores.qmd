@@ -135,7 +135,7 @@ Al comparar datos enteros o numéricos ocurre una comparación de magnitudes.
 8.5 == 8.5
 16 == 8.5
 
-16 != 8.5
+8.5 != 8.5
 16 != 8.5
 ```
 
@@ -171,7 +171,7 @@ Al comparar dos cadenas con `==` ambas deben ser exactamente iguales para que no
 "casa" == "casar"
 ```
 
-Las comparaciones son sencibles a las letras mayúsculas y minúsculas. Las letras mayúsculas tienen un orden mayor que las minúsculas. 
+Las comparaciones son sensibles a las letras mayúsculas y minúsculas. Las letras mayúsculas tienen un orden mayor que las minúsculas. 
 
 ```{r comparar_mayus}
 "C" > "c"
@@ -427,7 +427,7 @@ Hemos usado paréntesis para establecer el orden en que deben ocurrir las operac
 
 ### Operadores lógicos con datos enteros y numéricos {#sec-operadores-logicos-numero}
 
-Como revisamos en la [Sección @sec-datos-coercion], los datos enteros y numéricos pueden coercionados a lógicos. Todos los valores enteros y numéricos distintos a `0` son coercionados a `TRUE`, mientras que `0` siempre es coercionado a `FALSE`.
+Como revisamos en la [Sección @sec-datos-coercion], los datos enteros y numéricos pueden ser coercionados a lógicos. Todos los valores enteros y numéricos distintos a `0` son coercionados a `TRUE`, mientras que `0` siempre es coercionado a `FALSE`.
 
 Por ejemplo, `5 | 0` devuelve `TRUE` porque el número `5` es coercionado a `TRUE` y `0` es conercionado a `FALSE.
 
@@ -464,11 +464,10 @@ Si intentamos una operación lógica con una cadena de texto obtenemos siempre u
 
 ### Operadores lógicos con NA y NULL {#sec-operadores-logicos-nanull}
 
-Al usar el operador `|` (OR), si cualquiera de los datos es `TRUE`, obtenemos `TRUE` aunque el otro dato sea `NA` o `NULL`
+Al usar el operador `|` (OR), si cualquiera de los datos es `TRUE`, obtenemos `TRUE` aunque el otro dato sea `NA`.
 
 ```{r OR_NA_NULL_TRUE}
 NA | TRUE
-NULL | TRUE
 ```
 
 Pero si un dato es `NA` y el otro es `FALSE`, obtenemos `NA`.
@@ -477,17 +476,22 @@ Pero si un dato es `NA` y el otro es `FALSE`, obtenemos `NA`.
 NA | FALSE
 ```
 
-Y si un dato es `NULL` y el otro es `FALSE`, obtenemos un vector lógico vacío.
+Y si un dato es `NULL` obtenemos un vector lógico vacío.
 
 ```{r OR_NULL_FALSE}
 NULL | FALSE
 ```
 
-Lo anterior aplica para el caso de `&` (AND), si uno de los datos es `NA`, obtenemos `NA`, y si uno es `NULL`, obtenemos un vector lógico vacío.
+Para el caso de `&` (AND), si uno de los datos es `NA` y el otro es `TRUE` obtenemos `NA`, y si el otro es `FALSE` obtenemos False.
 
-```{r AND_NA_NULL}
+```{r AND_NA}
 NA & TRUE
 NA & FALSE
+```
+
+Si uno es de los datos es `NULL`, obtenemos un vector lógico vacío.
+
+```{r AND_NULL}
 NULL & TRUE
 NULL & FALSE
 ```
@@ -702,8 +706,6 @@ En el caso de los operadores de comparación, si una expresión tiene más de un
 ```{r orden_comparacion_1}
 #| error: true
 23 > 26 == 28
-
-63.4 != 52.6 <= 43.2 
 ```
 
 El orden de evaluación de los operadores lógicos puede ser un poco desafiante al principio, como en expresiones como la siguiente.
@@ -742,7 +744,6 @@ En el orden de operaciones definido, ocurre primero la multiplicación y despué
 Si encerramos entre paréntesis la suma, esta ocurrira primero y después la multiplicación
 
 ```{r parentesis_simple_2}
-# Indicamos que ocurra primero la suma y después la multiplicación
 1 * (2 + 3)
 ```
 
