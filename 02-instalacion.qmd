@@ -51,7 +51,7 @@ Un IDE nos proporciona herramientas para escribir y revisar nuestro código, adm
 
 Hay varias opciones de IDE para R,  y entre ellas mi preferido es [RStudio](https://www.rstudio.com/). Este entorno, además de incorporar las funciones esenciales de una IDE, es desarrollado por un equipo que ha contribuido de manera significativa para lograr que R sea lenguaje de programación más accesible, con un énfasis en la colaboración y la reproducción de los análisis.
 
-Para instalar RStudio, es necesario con descargar y ejecutar alguno de los instaladores disponibles en su sitio oficial. Están disponibles versiones para *Windows*, *OSX* y *Linux*.
+Para instalar RStudio, es necesario con descargar y ejecutar alguno de los instaladores disponibles en su sitio oficial. Están disponibles versiones para Windows MacOS y Linux.
 
 * <https://www.rstudio.com/products/rstudio/download/> 
 
@@ -59,4 +59,14 @@ Si ya hemos instalado R en nuestro equipo, RStudio lo detectará automáticament
 
 ## Positron - un IDE para análisis de datos
 
-TODO
+Positron es una IDE especializada en ciencia de datos que permite trabajar con R y Python de manera nativa. Esta IDE es desarrollada por Posit, los creadores de RStudio, y es la IDE que uso actualmente. 
+
+* <https://positron.posit.co/>
+
+Positron es, esencialmente, una versión especializada de [VSCode](https://code.visualstudio.com/), la IDE de uso general desarrollada por Microsoft, lo cual trae consigo el beneficio de tener acceso a muchas de las extensiones desarrolladas por ella.
+
+Al igual que RStudio, Positron detectará automáticamente las instalaciones de R y Python en nuestro sistema.
+
+Puede instalarse en Windows, MacOS y Linux:
+
+* <https://positron.posit.co/download.html>

@@ -59,10 +59,10 @@ Puedes consultar todos los argumentos de esta función ejecutando `?read.table` 
 
 Es importante señalar que el objeto obtenido al usar esta función es siempre un **data frame**.
 
-Probemos con un archivo con extensión ".data", descargado desde el repositorio de [Github](http://www.github.com) de este libro. 
+Probemos con un archivo con extensión ".data", descargado desde el repositorio de [Github](http://www.github.com/jboscomendoza/r-principiantes-2ed) de este libro. 
 ```{r descarga cancer.data, echo=TRUE, eval=FALSE}
 download.file(
-  url = "https://raw.githubusercontent.com/jboscomendoza/r-principiantes-bookdown/master/datos/breast-cancer-wis.data", 
+  url = "https://raw.githubusercontent.com/jboscomendoza/r-principiantes-2ed/master/datos/breast-cancer-wis.data", 
   dest = "breast-cancer-wis.data"
 )
 ```
@@ -98,7 +98,7 @@ Luce mejor, pero los nombres de las columnas son poco descriptivos. Si no damos 
 
 Para este ejemplo, contamos con un archivo de información, que describe el contenido de los datos que hemos importado.
 
-* https://raw.githubusercontent.com/jboscomendoza/r-principiantes-bookdown/master/datos/breast-cancer-wis.names
+* https://raw.githubusercontent.com/jboscomendoza/r-principiantes-2ed/master/datos/breast-cancer-wis.names
 
 Si descargas este archivo, puedes abrirlo usando el bloc o navegador de internet de tu computadora.
 
@@ -130,7 +130,7 @@ Este tipo de archivos también se pueden importar usando la función `read.table
 Probemos descargando los mismos datos que en el ejemplo anterior, pero almacenados en un archivo con extensión **.csv**.
 ```{r, echo=TRUE, eval=FALSE}
 download.file(
-  url = "https://raw.githubusercontent.com/jboscomendoza/r-principiantes-bookdown/master/datos/breast-cancer-wis.csv", 
+  url = "https://raw.githubusercontent.com/jboscomendoza/r-principiantes-2ed/master/datos/breast-cancer-wis.csv", 
   dest = "breast-cancer-wis.csv"
 )
 ```
@@ -309,7 +309,7 @@ Usaremos, principalmente dos funciones de este paquete.
 Para probar estas funciones, descargaremos una hoja de cálculo de prueba. Nota que hemos establecido el argumento `mode = "wb"` para asegurar que el archivo se descargue correctamente.
 ```{r descarga xlsx, echo=TRUE, eval=FALSE}
 download.file(
-  url = "https://github.com/jboscomendoza/r-principiantes-bookdown/raw/master/datos/data_frames.xlsx", 
+  url = "https://github.com/jboscomendoza/r-principiantes-2ed/raw/master/datos/data_frames.xlsx", 
   destfile = "data_frames.xlsx", 
   mode = "wb"
 ) 

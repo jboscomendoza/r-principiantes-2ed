@@ -1,0 +1,27 @@
+# Material de consulta {#sec-consulta}
+
+## Probabilidad y estadística (introductorio a medio)
+
+*	Diez, D., Barr, C., Çetinkaya-Rundel, M. (2019). *OpenIntro Statistics*, cuarta edición. OpenIntro.
+  <https://www.openintro.org/book/os/>
+*	Navarro, D. (2015). *Learning statistics with R: A tutorial for psychology students and other beginners*. University of Adelaide.
+ <http://www.fon.hum.uva.nl/paul/lot2015/Navarro2014.pdf>
+
+## R aplicado a Data Science (medio a avanzado)
+
+* Peng, R. D. (2016). *R Programming for Data Science*. Leanpub.
+ <https://leanpub.com/rprogramming>
+* Wickham, H., Çetinkaya-Rundel, M., Grolemund, G. (2023). *R para la Ciencia de Datos*, segunda edición. O’Reilly.
+ <https://davidrsch.github.io/r4ds-es//>
+
+## Programación con R (avanzado)
+
+*	Wickham, H. (2014). *Tidy Data*. Journal of Statistical Software.
+ <https://www.jstatsoft.org/article/view/v059i10/v59i10.pdf>
+*	Wickham, H. (2014). *Advanced R*, segunda edición. CRC Press.
+ <https://adv-r.hadley.nz/>
+
+## Use de RStudio y Positron
+
+*	Posit Cheat Sheets.
+ <https://posit.co/resources/cheatsheets/>

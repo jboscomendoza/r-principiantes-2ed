@@ -1,0 +1,41 @@
+# Introducción: ¿Qué es R y para qué es usado? {#sec-introduccion}
+
+R es un lenguaje de programación y entorno computacional dedicado a la estadística. 
+
+Decimos que es un lenguaje de programación porque nos permite dar instrucciones, usando código, a nuestros equipos de cómputo para que realicen tareas específicas. En el caso de R necesitamos un intérprete para este código y a esto le llamamos un entorno computacional. Cuando instalamos R en nuestra computadora en realidad estamos instalando el entorno computacional y para que podamos hacer algo con él necesitamos conocer la manera de escribir instrucciones pueda interpretar y ejecutar.
+
+R es diferente a otros lenguajes de programación que por lo general están diseñados para realizar muchas tareas diferentes pues fue creado con el único propósito de hacer estadística. Esta hace que R sea peculiar, con características que pueden resultar absurdas para quienes tienen experiencia en otros lenguajes de programación, pero también es la razón por la que R es una herramienta muy poderosa para trabajar con datos y hacer estadística porque funciona como una persona especializada en esas áreas desearía que lo hiciera.
+
+Algunas de las peculiaridades de R están relacionadas con la manera en que fue creado.
+
+## Un poco de historia
+R tiene sus orígenes en S, un lenguaje de programación creado en los Laboratorios Bell de Estados Unidos, que son más conocido por ser el lugar en que se inventaron el transistor, el láser y el sistema operativo Unix, entro muchas otras cosas. 
+
+Dado que S y sus estándares eran propiedad de los Laboratorios Bell, lo cual restringía su uso, Ross Ihaka y Robert Gentleman, de la Universidad de Auckland en Nueva Zelanda, decidieron crear una implementación abierta y gratuita de S. Este trabajo, iniciado en 1993, culminó con la creación de R en 1995, que tuvo su primera versión final estable en el 2000 [@hornikrfaq2024; @brock2024].
+
+R hereda muchas características de S, por lo que puedes correr código de este lenguaje usando R sin mayor problema y es común que existan más de una manera de realizar tareas comunes, una compatible con S y otra diseñada específicamente para R. Como el equipo de desarrollo de R busca, siempre que es posible, mantener la compatibilidad de R con código antiguo, esto como resultado inconsistencias, sintaxis poco intuitiva y frustración por parte de las personas usuarias de R.
+
+Aunque es agradable que puedas correr sin problema código de R sin paquetes adicionales escrito hace diez años, esto tiene el efecto negativo de conservar maneras poco intuitivas de realizar tareas comunes y comportamientos que pueden generar errores inesperados.
+
+## R en la actualidad
+En el presente, el mantenimiento y desarrollo de R es realizado por el R Development Core Team, un equipo de especialistas en ciencias computacionales y estadística provenientes de diferentes instituciones alrededor del mundo. La versión de R mantenida por este equipo es conocida como **base** y sobre ella que se crean otras implementaciones del lenguaje y los paquetes que expanden su funcionalidad.
+
+R puede ser usado sin restricciones porque es distribuido de manera gratuita con la Licencia Pública General de GNU (GNU GPL), que lo convierte en un software libre y de código abierto. Si lo deseas, puedes examinar el código que hace funcionar R funcione o puedes crear versiones propias del lenguaje que se ajusten a tus necesidades particulares sin necesidad de autorizaciones o pagar licencias de uso. La licencia GNU GPL también te permite usar R para cualquier fin que desees, sin limitación alguna, sin importar que sea un uso personal, académico o comercial.
+
+El desarrollo de R se mantiene activo y la versión más reciente del lenguaje al momento de escribir este texto es la 4.4.3 ("Reassured Reassurer"), publicada el 11 de marzo del 2026 en el Comprehensive R Archive Network ([CRAN](https://cran.r-project.org/)), el repositorio oficial de R. Allí mismo son publicados diariamente extensiones al lenguaje, llamadas *paquetes*, y sus respectivas actualizaciones. 
+
+## ¿Quién usa R?
+R es un lenguaje que ha mantenido un base de usuarios estable durante los últimos 20 años. 
+En Marzo del 2026, de acuerdo con el TIOBE programming community index, uno de los índices más usados para medir el uso de lenguajes de programación, R era el lenguaje número 9 en popularidad, después ocupar la posición 16 en el 2025 [@tiobe2026].
+
+Esto representa un crecimiento en comparación de lenguajes de amplia aplicación en el análisis de datos, como es el caso de Python [@taft2026], que ocupa el lugar número uno en el índice de TIOBE, al ser un lenguaje que puede ser usados para todo tipo de tareas, desde crear sitios web hasta programar robots.
+
+La adopción de R se debe en gran medida a que permite responder preguntas mediante el uso de datos de forma efectiva, con un ecosistema robusto de paquetes aportados y mantenidos por usuarios altamente calificados; por ejemplo, los repositorios CRAN y Bioconductor cuentan con estrictos procesos de evaluación antes de que un paquete sea publicado en ellos [@cran2026; @bioconductor2026].
+
+Al ser un lenguaje abierto y gratuito, se facilita compartir código, crear herramientas para solucionar problemas comunes y que todo tipo de personas interesadas en análisis estadísticos puedan participar y contribuir al desarrollo y uso de R, no sólo aquellas que tengan acceso a licencias de software cerrado.
+
+R es usado principalmente en entornos académicos y de investigación y desarrollo, pero es usado también es múltiples industrias, con empresas como Microsoft, Johnson & Johnson, Novartis y Pfizer participando de manera activa en el R Consortium, una organización dedicada a promover el uso de este lenguaje [@rconsortium2026].
+
+Aunque R está diseñado para análisis estadístico, con el paso del tiempo los usuarios de este lenguaje han creado paquetes que han ampliado en gran medida su funcionalidad. En la actualidad es posible realizar en R minería de textos, procesamiento de imagen, visualizaciones interactivas de datos, procesamiento de Big Data, Machine Learning e interactuar con agentes de Inteligencia Artificial, entre muchas otras cosas.
+
+Así que, empecemos a usar R.

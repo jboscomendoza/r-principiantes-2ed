@@ -314,7 +314,7 @@ Sexo             | Hembra    | Macho
 Número de patas  | 4         | 4
 Pelaje           | Corto     | Largo
 
-Vamos a evaluar algunas aformaciones sobre Menchi y Tlaloc.
+Vamos a evaluar algunas afirmaciones sobre Menchi y Tlaloc.
 
 * Menchi Y (`&`) Tlaloc son Mamíferos
 

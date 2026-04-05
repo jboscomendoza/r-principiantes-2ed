@@ -61,7 +61,7 @@ Por ejemplo, si tratamos de recuperar la edad de una persona encuestada que no e
 
 `NA` además puede aparecer como resultado de una operación realizada, pero no tuvo éxito en su ejecución.
 
-## Coerción
+## Coerción {#sec-datos-coercion}
 En R, los datos pueden ser coercionados, es decir, forzados, para transformarlos de un tipo a otro.
 
 La coerción es muy importante. Cuando pedimos a R ejecutar una operación, intentará coercionar de manera **implícita**, sin avisarnos, los datos de su tipo original al tipo correcto que la permita realizar. Habrá ocasiones en las que R tenga éxito y la operación ocurra sin problemas, y otras en las que falle y obtengamos un error.

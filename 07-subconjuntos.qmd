@@ -1,16 +1,16 @@
 # Subconjuntos {#sec-subconjuntos}
 
-En R, podemos extraer partes de una estructura de datos y a estas las denominamos como **subconjuntos**. Hacemos esto para seleccionar datos con características específicas, por ejemplo, todos los valores mayores a cierto número o aquellos que coinciden exactamente con un valor de nuestro interés.
+En R, podemos extraer partes de una estructura de datos y a estas las denominamos como **subconjuntos**. De este modo podemos seleccionar datos con características específicas que forman parte de un todo, por ejemplo, todos los valores mayores a `0` en un vector numérico o todo los que son exactamente `9`.
 
-Para obtener subconjuntos hacemos uso de índices, operadores lógicos y álgebra Booleana, además de que contamos con varios procedimientos para ello. Algunos de estos procedimientos pueden usarse con cualquier estructura de datos y otros sólo funcionan con algunas de ellas.
+Para obtener subconjuntos hacemos uso de índices, operadores lógicos y álgebra Booleana mediante operadores lógicos, además de que contamos con varios procedimientos para ello. Algunos de estos procedimientos pueden usarse con cualquier estructura de datos y otros sólo funcionan con algunas de ellas.
 
 En este capítulo revisaremos cómo extraer subconjuntos de vectores, matrices, data frames y listas, usando índices, nombres y condicionales.
 
 ## Índices
 
-Usar índices para obtener subconjuntos es el procedimiento más universal en R, pues funciona para todas las estructuras de datos.
+Usar índices para es el procedimiento más universal para obtener subconjuntos en R porque  funciona para todas las estructuras de datos.
 
-**Un índice en R representa una posición**. Cuando usamos índices le pedimos a R que extraiga los datos que se encuentran en una o varias posiciones específicas dentro de una estructura de datos. A diferencia de la mayoría de los lenguajes de programación, los índices en R empiezan en **1** en lugar de **0**, de este modo, el índice del primer elemento de una estructura de datos siempre es 1, el segundo 2, y así sucesivamente.
+**Un índice en R representa una posición**. Cuando usamos índices, le pedimos a R que extraiga los datos que se encuentran en una o varias posiciones específicas dentro de una estructura de datos. A diferencia de la mayoría de los lenguajes de programación, los índices en R empiezan en **1** en lugar de **0**, de este modo, el índice del primer elemento de una estructura de datos siempre es 1, el segundo 2, y así sucesivamente.
 
 Para obtener subconjuntos con índices escribimos corchetes `[]` después del nombre de un objeto. Dentro de los corchetes escribimos el o los números que corresponden a la posición que nos interesa extraer del objeto.
 

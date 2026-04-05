@@ -14,7 +14,7 @@ Usaremos un conjunto de datos llamado *"Bank Marketing Data Set"*, que contiene 
 Comenzamos con la descarga de la copia del archivo **csv** desde el sitio de *Github* de este libro.
 ```{r dl bank, echo=TRUE, eval=FALSE}
 download.file(
-  url = "https://raw.githubusercontent.com/jboscomendoza/r-principiantes-bookdown/master/datos/bank.csv", 
+  url = "https://raw.githubusercontent.com/jboscomendoza/r-principiantes-2ed/master/datos/bank.csv", 
   destfile = "bank.csv"
   )
 ```

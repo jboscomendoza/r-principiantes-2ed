@@ -1,8 +1,8 @@
 # Prefacio {.unnumbered}
 
-![](images/r-principiantes-cover.png){width="50%" fig-align="center"}
+![](images/r-principiantes-cover-2ed.png){width="50%" fig-align="center"}
 
-**Propósito del libro**
+## Propósito del libro
 
 *R para principiantes* pretende ser un materal introductorio al lenguaje de programación R, dirigído a personas que nunca han usado R o ningún otro lenguaje de programación, ni tiene conocimiento previo de probabilidad y estadística.
 
@@ -10,7 +10,7 @@ Este libro tiene como propósito que adquieras los fundamentos del uso de R como
 
 No son objetivos de este libro que aprendas probabilidad y estadística, ni las aplicaciones espécificas de estas disciplinas, tales como son *data science*, aprendizaje automático, econometría, psicometría, bioestadística u otros.
 
-En el [Capítulo @sec-conclusion] de este libro se presenta una lista de libros y otros materiales que puedes consultar en caso de tener interés por alguno de estos temas.
+En el [capítulo @sec-consulta] de este libro se presenta una lista de recursos que puedes consultar en caso de tener interés por alguno de estos temas.
 
 Se espera que al concluir este libro:
 
@@ -21,15 +21,21 @@ Se espera que al concluir este libro:
 -   importes y exportes datos
 -   generes y exportes gráficos
 
-**Acerca del autor**
+El código para generar este libro se encuentra en Github:
+
+- <https://github.com/jboscomendoza/r-principiantes-2ed>
+
+## Acerca del autor
 
 *Juan Bosco Mendoza Vega* es usuario de R desde el 2014.
 
-Es maestro en psicología por la Universidad Nacional Autónoma de México (UNAM). Especialista en evaluación educativa, interesado en la evaluación del aprendizaje y de programas educativos, así como en los usos de métodos cuantitativos para el diseño, análisis y difusión de resultados de evaluación.
+Es maestro en psicología por la Universidad Nacional Autónoma de México (UNAM). Especialista en evaluación educativa y psicometría, dedicado a la evaluación del aprendizaje y de programas educativos, así como a la aplicación del análisis de datos y  los métodos cuantitativos para el estudio de las ciencias sociales.
 
-Ha colaborado en los Comités Interinstitucionales para la Evaluación de la Educación Superior (CIEES), como analista y elaborador de informes de evaluación de programas educativos de educación superior de diferentes universidad públicas y privadas del país.
+Ha colaborado en los Comités Interinstitucionales para la Evaluación de la Educación Superior (CIEES) como elaborador de informes de evaluación institucional y como consultor independiente en análisis de datos y psicomeetría para INNOVA Schools, el Centro Nacional de Evaluación para la Educación Superior (CENEVAL), The World Bank Group y el Banco Interamericano de Desarrollo (BID).
 
-Desde el 2014 trabaja en el Instituto Nacional para la Evaluación de la Educación, en donde actualmente se ha desempeñado en las áreas de Evaluación de Resultados Educativos y de Evaluación de la Oferta Educativa.
+Trabajó en el Institucional para la Evaluación de la Educación (INEE) del 2014 al 2019 y para la Comisión Nacional para la mejora de la Educación del 2022 al 2025 en las áreas de evaluación del aprendizaje y de evaluación de la oferta educativa, así como Data Scientist y psicómetra en Mindful del 2019 al 2021.
+
+Actualmente trabaja como analista cuantitativo en Vía Educación.
 
 Puedes visitar el sitio personal del autor en el siguiente enlace:
 

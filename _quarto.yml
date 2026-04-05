@@ -4,10 +4,10 @@ project:
 book:
   title: "R para principiantes (segunda edición)"
   author: "Juan Bosco Mendoza Vega"
-  date: "xx/xx/2025"
+  date: "04/2024"
   chapters:
     - index.qmd
-    - 01-intro.qmd
+    - 01-introduccion.qmd
     - 02-instalacion.qmd
     - 03-conceptos-basicos.qmd
     - 04-datos.qmd
@@ -20,8 +20,9 @@ book:
     - 11-importar-y-exportar.qmd
     - 12-graficas.qmd
     - 13-conclusion.qmd
-    - references.qmd
-  repo-url: https://github.com/jboscomendoza/
+    - 14-material-consulta.qmd
+    - 15-referencias.qmd
+  repo-url: https://github.com/jboscomendoza/r-principiantes-2ed
 
 bibliography: references.bib
 
@@ -30,7 +31,7 @@ execute:
 
 format:
   html:
-    theme: simplex
+    theme: pulse
     respect-user-color-scheme: true
     linestretch: 1.5
     toc: true

@@ -1,5 +1,3 @@
-TODO
-
 # Estructuras de datos {#sec-estructuras}
 Las estructuras de datos son las maneras en que los objetos contienen datos, cuando trabajamos con R lo que estamos haciendo es manipular estas estructuras.
 
@@ -12,7 +10,7 @@ Dimensiones| Homogéneas| Heterogéneas
 1          | Vector    | Lista
 2          | Matriz    | Data frame 
 n          | Array     | 
-*Adaptado de Wickham (2016).*
+*Adaptado de [@wickham2023].*
 
 Veamos las características de cada una de ellas.
 
@@ -28,22 +26,22 @@ Todos los vectores tienen tres propiedades:
 Cuando una estructura únicamente puede contener datos de un sólo tipo, como es el caso de los vectores, decimos que es **homogénea**, pero no implica que necesariamente sea **atómica**. Regresaremos sobre esto al hablar de matrices y arrays.
 
 Como los vectores son la estructura de datos más sencilla de R, datos simples como el número **3**, son en realidad vectores. En este caso, un vector de tipo numérico y largo igual a 1.
-```{r, echo=TRUE}
+```{r}
 3
 ```
 
 Verificamos que  el **3** es un vector con la función `is.vector()`.
-```{r, echo=TRUE}
+```{r is.vector}
 is.vector(3)
 ```
 
 Y usamos la función `length()` para conocer su largo.
-```{r, echo=TRUE}
+```{r vector_length}
 length(3)
 ```
 
 Lo mismo ocurre con los demás tipos de datos, por ejemplo, con cadenas de texto y datos lógicos.
-```{r, echo=TRUE}
+```{r}
 is.vector("tres")
 is.vector(TRUE)
 ```
@@ -52,7 +50,7 @@ is.vector(TRUE)
 Creamos vectores usando la función `c()` (*combinar*). 
 
 Llamamos esta función y le damos como argumento los elementos que deseamos combinar en un vector, separados por comas.
-```{r, echo=TRUE}
+```{r crear_vector}
 # Vector numérico
 c(1, 2, 3, 5, 8, 13)
 
@@ -64,7 +62,7 @@ c(TRUE, TRUE, FALSE, FALSE, TRUE)
 ```
 
 Si deseamos agregar un elemento a un vector ya existente, podemos hacerlo combinando nuestro vector original con los elementos nuevos y asignando el resultado a nuestro vector original.
-```{r, echo=TRUE}
+```{r agregar_vector}
 mi_vector <- c(TRUE, FALSE, TRUE)
 
 mi_vector <- c(mi_vector, FALSE)
@@ -73,7 +71,7 @@ mi_vector
 ```
 
 Naturalmente, podemos crear vectores que son combinación de vectores.
-```{r, echo=TRUE}
+```{r combinar_vector}
 mi_vector_1 <- c(1, 3, 5)
 mi_vector_2 <- c(2, 4, 6)
 
@@ -85,7 +83,7 @@ mi_vector_3
 Si intentamos combinar datos de diferentes tipos en un mismo vector, R realizará coerción automáticamente. El vector resultante será del tipo más flexible entre los datos que contenga, siguiendo las reglas de ***coerción***.
 
 Creamos un vector numérico.
-```{r, echo=TRUE}
+```{r}
 mi_vector <- c(1, 2, 3)
 
 class(mi_vector)
@@ -108,18 +106,18 @@ class(mi_vector_mezcla)
 Podemos crear vectores de secuencias numéricas usando `:`. De un lado de los dos puntos escribimos el número de inicio de la secuencia y del otro el final.
 
 Por ejemplo, creamos una secuencia del 1 al 10.
-```{r dos puntos, echo=TRUE}
+```{r dos puntos}
 1:10
 ```
 
 También podemos crear una secuencia del 10 al 1.
-```{r dos puntos dec, echo=TRUE}
+```{r dos puntos dec}
 10:1
 ```
 
 Las secuencias creadas con `:` son consecutivas con incrementos o decrementos de 1. Estas secuencias pueden empezar con cualquier número, incluso si este es negativo o tiene cifras decimales
 
-```{r dos puntos otros, echo=TRUE}
+```{r dos puntos otros}
 # Número negativo
 -43:-30
 
@@ -128,7 +126,7 @@ Las secuencias creadas con `:` son consecutivas con incrementos o decrementos de
 ```
 
 Si nuestro número de inicio tiene cifras decimales, estas serán respetadas al hacer los incrementos o decrementos de uno en uno. En contraste, si es nuestro número de final el que tiene cifras decimales, este será redondeado.
-```{r dos puntos dec 2, echo=TRUE}
+```{r dos puntos dec 2}
 # Se conservan los decimales del inicio
 -2.48:2
 
@@ -146,12 +144,12 @@ Existen algunas operaciones al aplicarlas a un vector, se aplican a cada uno de 
 Las operaciones aritméticas y relacionales pueden vectorizarse. Si las aplicamos a un vector, la operación se realizará para cada uno de los elementos que contiene.
 
 Por ejemplo, creamos un vector numérico.
-```{r mi_vector_vectorizacion, echo=TRUE}
+```{r mi_vector_vectorizacion}
 mi_vector <- c(2, 3, 6, 7, 8, 10, 11)
 ```
 
 Si aplicamos operaciones aritméticas, obtenemos un vector con un resultado por cada elemento.
-```{r vecotirzacion_arit, echo=TRUE}
+```{r vecotirzacion_arit}
 # Operaciones aritméticas
 mi_vector + 2
 mi_vector * 2
@@ -159,7 +157,7 @@ mi_vector %% 2
 ```
 
 Al aplicar operaciones relacionales, obtenemos un vector de `TRUE`y `FALSE`, uno para cada elemento comparado.
-```{r vectorizacion_rela, echo=TRUE}
+```{r vectorizacion_rela}
 mi_vector > 7
 mi_vector < 7
 mi_vector == 7
@@ -182,7 +180,7 @@ En general, es preferible usar listas en lugar de arrays, una estructura de dato
 
 ### Creación de matrices
 Creamos matrices en R con la función `matrix()`. La función `matrix()` acepta dos argumentos, `nrow` y `ncol`. Con ellos especificamos el número de renglones y columnas que tendrá nuestra matriz.
-```{r, echo=TRUE}
+```{r}
 # Un vector numérico del uno al doce
 1:12
 
@@ -206,12 +204,12 @@ Si multiplicamos el número de renglones por el número de columnas, obtendremos
 Cuando intentamos acomodar un número diferente de elementos y celdas, ocurren dos cosas diferentes. 
 
 Si el número de elementos es mayor al número de celdas, se acomodarán todos los datos que sean posibles y los demás se omitirán. 
-```{r, echo=TRUE}
+```{r}
 matrix(1:12, nrow = 3, ncol = 3)
 ```
 
 Si, por el contrario, el número de celdas es mayor que el número de elementos, estos se **reciclaran**. En cuanto los elementos sean insuficientes para acomodarse en las celdas, R nos devolverá una advertencia y se empezaran a usar los elementos a partir del primero de ellos
-```{r, echo=TRUE}
+```{r}
 matrix(1:12, nrow = 5, ncol = 4)
 ```
 
@@ -223,7 +221,7 @@ Otro procedimiento para crear matrices es la unión vectores con las siguientes 
 De este modo podemos crear cuatro vectores y unirlos para formar una matriz. Cada vector será un renglón en esta matriz.
 
 Creamos cuatro vectores, cada uno de largo igual a cuatro.
-```{r, echo = TRUE}
+```{r cuatro_vectores}
 vector_1 <- 1:4
 vector_2 <- 5:8
 vector_3 <- 9:12
@@ -231,7 +229,7 @@ vector_4 <- 13:16
 ```
 
 Usamos `rbind()` para crear un matriz, en la que cada vector será un renglón.
-```{r, echo = TRUE}
+```{r unir_matriz}
 matriz <- rbind(vector_1, vector_2, vector_3, vector_4)
 
 # Resultado
@@ -239,7 +237,7 @@ matriz
 ```
 
 Si utilizamos `cbind()`, entonces cada vector será una columna.
-```{r, echo = TRUE}
+```{r}
 matriz <- cbind(vector_1, vector_2, vector_3, vector_4)
 
 # Resultado
@@ -247,7 +245,7 @@ matriz
 ```
 
 Al igual que con `matrix()`, los elementos de los vectores son reciclados para formar una estructura rectangular y se nos muestra un mensaje de advertencia.
-```{r, echo = TRUE}
+```{r}
 # Elementos de largo diferente
 vector_1 <- 1:2
 vector_2 <- 1:3
@@ -262,7 +260,7 @@ matriz
 Finalmente, las matrices pueden contener `NA`s.
 
 Creamos dos vectores con un `NA` en ellos.
-```{r, echo=TRUE}
+```{r}
 vector_1 <- c(NA, 1, 2)
 vector_2 <- c(3,  4, NA)
 ```
@@ -281,7 +279,7 @@ Como `NA` representa datos perdidos, puede estar presente en compañía de todo 
 No obstante que las matrices y arrays son estructuras que sólo pueden contener un tipo de datos, no son atómicas. Su clase es igual a **matriz (matrix)** o **array** según corresponda.
 
 Verificamos esto usando la función `class()`.
-```{r, echo=TRUE}
+```{r}
 mi_matriz <- matrix(1:10)
 
 class(mi_matriz)
@@ -290,13 +288,13 @@ class(mi_matriz)
 Las matrices y arrays pueden tener más de una dimensión.
 
 Obtenemos el número de dimensiones de una matriz o array con la función `dim()`. Esta función nos devolverá varios números, cada uno de ellos indica la cantidad de elementos que tiene una dimensión.
-```{r, echo=TRUE}
+```{r}
 mi_matriz <- matrix(1:12, nrow = 4, ncol = 3)
 dim(mi_matriz)
 ```
 
 Cabe señalar que si usamos `dim()` con un vector, obtenemos `NULL`. Esto ocurre con todos los objetos unidimensionales 
-```{r, echo=TRUE}
+```{r dim_null}
 mi_vector <- 1:12
 
 dim(mi_vector)
@@ -305,7 +303,7 @@ dim(mi_vector)
 Finalmente, las operaciones aritméticas también son vectorizadas al aplicarlas a una matriz. La operación es aplicada a cada uno de los elementos de la matriz.
 
 Creamos una matriz.
-```{r, echo=TRUE}
+```{r aritmetica_matris}
 mi_matriz <- matrix(1:9, nrow = 3, ncol = 3)
 
 # Resultado
@@ -327,7 +325,7 @@ mi_matriz ^ 3
 Si intentamos vectorizar una operación utilizando una matriz con `NA`s, esta se aplicará para los elementos válidos, devolviendo `NA` cuando corresponda.
 
 Creamos una matriz con `NA`s.
-```{r, echo=TRUE}
+```{r}
 vector_1 <- c(NA, 2, 3)
 vector_2 <- c(4, 5, NA)
 
@@ -338,14 +336,14 @@ matriz
 ```
 
 Intentamos dividir sus elementos entre dos.
-```{r, echo=T}
+```{r matriz_división}
 matriz / 2
 ```
 
 Finalmente, podemos usar la función `t()` para transponer una matriz, es decir, rotarla 90°.
 
 Creamos una matriz con tres renglones y dos columnas.
-```{r, echo=TRUE}
+```{r}
 matriz <- matrix(1:6, nrow = 3)
 
 # Resultado
@@ -353,7 +351,7 @@ matriz
 ```
 
 Usamos `t()` para transponer.
-```{r, echo=TRUE}
+```{r matriz_transposicion}
 matriz_t <- t(matriz)
 
 # Resultado
@@ -382,7 +380,7 @@ Esto es muy importante: **Un data frame está compuesto por vectores**.
 Más adelante se hará evidente porque esta característica de un data frame es sumamente importante y también, cómo podemos sacarle provecho.
 
 Además, podemos asignar un nombre a cada vector, que se convertirá en el nombre de la columna. Como todos los nombres, es recomendable que este sea claro, no ambiguo y descriptivo.
-```{r, echo = TRUE}
+```{r nombre de columnas}
 mi_df <- data.frame(
   "entero" = 1:4, 
   "factor" = c("a", "b", "c", "d"), 
@@ -406,7 +404,8 @@ class(data.frame)
 ```
 
 Si los vectores que usamos para construir el data frame no son del mismo largo, los datos **no se reciclaran**. Se nos devolverá un error.
-```{r, echo=TRUE, error=TRUE}
+```{r dataframe_no_reciclado}
+#| error: true
 data.frame(
   "entero" = 1:3, 
   "factor" = c("a", "b", "c", "d"), 
@@ -418,17 +417,17 @@ data.frame(
 También podemos coercionar esta matriz a un data frame.
 
 Creamos una matriz.
-```{r}
+```{r matriz_para_coercion}
 matriz <- matrix(1:12, ncol = 4)
 ```
 
 Usamos `as.data.frame()` para coercionar una matriz a un data frame.
-```{r}
+```{r matriz_a_df}
 df <- as.data.frame(matriz)
 ```
 
 Verificamos el resultado
-```{r}
+```{r clase_df}
 class(df)
 
 # Resultado
@@ -439,7 +438,7 @@ df
 Al igual que con una matriz, si aplicamos una operación aritmética a un data frame, esta se vectorizará. 
 
 Los resultados que obtendremos dependerán del tipo de datos de cada columna. R nos devolverá todas las advertencias que ocurran como resultado de las operaciones realizadas, por ejemplo, aquellas que hayan requerido una coerción.
-```{r, echo=TRUE}
+```{r}
 #| error: true
 mi_df <- data.frame(
   "entero" = 1:4, 
@@ -461,7 +460,8 @@ Para crear una lista usamos la función `list()`, que nos pedirá los elementos 
 Al igual que con un data frame, tenemos la opción de poner nombre a cada elemento de una lista.
 
 Por último, no es posible vectorizar operaciones aritméticas usando una lista, se nos devuelve un error como resultado.
-```{r, echo = TRUE, error=TRUE}
+```{r vectorizar_lista_error}
+#| error: true
 mi_vector <- 1:10
 mi_matriz <- matrix(1:4, nrow = 2)
 mi_df     <- data.frame("num" = 1:3, "let" = c("a", "b", "c"))
@@ -472,7 +472,7 @@ mi_lista
 ```
 
 Creamos una lista que contiene otras listas.
-```{r, echo=TRUE}
+```{r lista_recursiva}
 lista_recursiva <- list("lista1" = mi_lista, "lista2" = mi_lista)
 
 # Resultado
@@ -483,22 +483,23 @@ lista_recursiva
 Una lista es unidimensional, sólo tiene largo.
 
 El largo de una lista es igual al número de elementos que contiene, sin importar de qué tipo o clase sean. Usamos la lista recursiva que creamos en la sección anterior para ilustrar esto.
-```{r, echo=TRUE}
+```{r largo_lista_recursiva}
 length(lista_recursiva)
 ```
 
 Dado que una lista siempre tiene una sola dimensión, la función `dim()` nos devuelve `NULL`.
-```{r, echo=TRUE}
+```{r dim_lista_recursiva}
 dim(lista_recursiva)
 ```
 
 Las listas tienen clase **list**, sin importar qué elementos contienen.
-```{r, echo=TRUE}
+```{r clase_lista_recursiva}
 class(lista_recursiva)
 ```
 
 Finalmente, no es posible vectorizar operaciones aritméticas usando listas. Al intentarlo nos es devuelto un error.
-```{r, echo=TRUE, error=TRUE}
+```{r lista_entre_dos}
+#| error: true
 mi_lista / 2
 ```
 
@@ -509,7 +510,7 @@ Al igual que con los datos, cuando intentamos hacer operaciones con una estructu
 
 También podemos usar alguna de las funciones de la familia `as()` coercionar de un tipo de estructura de datos. A continuación se presentan las más comunes.
 
-Función           | Coerciona a | Coerciona exitosamente a
+Función           | Intenta coercionar | Puede coerciona exitosamente
 ----              |----         | ----
 `as.vector()`     | Vector      | Matrices
 `as.matrix()`     | Matrices    | Vectores, Data frames
@@ -521,7 +522,7 @@ Como podrás ver, las estructuras de datos más sencillas, (unidimensionales, ho
 Veamos algunos ejemplos.
 
 Creamos un vector, una matriz, un data frame y una lista.
-```{r crear_estructuras, echo=TRUE}
+```{r crear_estructuras}
 mi_vector <- c("a", "b", "c")
 mi_matriz <- matrix(1:4, nrow = 2)
 mi_df <- data.frame("a" = 1:2, "b" = c("a", "b"))
@@ -529,7 +530,7 @@ mi_lista <- list("a" = mi_vector, "b" = mi_matriz, "c" = mi_df)
 ```
 
 Intentemos coercionar a vector con `as.vector()`.
-```{r as_vector, echo=TRUE}
+```{r as_vector}
 as.vector(mi_matriz)
 as.vector(mi_df)
 as.vector(mi_lista)
@@ -540,7 +541,7 @@ La coerción que intentamos sólo tuvo éxito para una matriz. Para data frame y
 Nota que `as.vector()` **no devolvió un error o una advertencia a pesar de que no tuvo éxito** al coercionar, en este caso un data frame o una lista. Esto es importante, pues no puedes confiar que `as.vector()` tuvo éxito porque corrió sin errores, es necesaria una verificación adicional. Como R intenta coercionar automáticamente, esto puede producir resultados inesperados si no tenemos cuidado.
 
 Intentemos coercionar a matriz con `as.matrix()`.
-```{r, echo=TRUE}
+```{r}
 as.matrix(mi_vector)
 as.matrix(mi_df)
 as.matrix(mi_lista)
@@ -552,7 +553,8 @@ Por su parte, al correr la función con un data frame, coercionamos también tod
 Al coercionar una lista a una matriz, efectivamente obtenemos un objeto de este tipo, sin embargo perdemos toda la información que contiene, por lo tanto, no podemos considerar que esta es una coerción exitosa. Del mismo modo que con `as.vector()`, no nos es mostrado ningún error ni advertencia.
 
 Intentemos coercionar a matriz con `as.data.frame()`.
-```{r as_dataframe, echo=TRUE, error=TRUE}
+```{r as_dataframe}
+#| error: true
 as.data.frame(mi_vector)
 as.data.frame(mi_matriz)
 as.data.frame(mi_lista)
@@ -565,7 +567,7 @@ El vector, al igual que cuando fue coercionado a matriz, devolvió como resultad
 En este caso, al intentar la coerción de lista a data frame, obtenemos un error. Esta es la única situación en la que esto ocurre utilizando las funciones revisadas en esta sección.
 
 Por último, intentemos coercionar a matriz con `as.list()`.
-```{r as_list, echo=TRUE}
+```{r as_list}
 as.list(mi_vector)
 as.list(mi_matriz)
 as.list(mi_df)
