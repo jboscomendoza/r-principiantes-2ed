@@ -1,72 +1,103 @@
 # Instalación {#sec-instalacion}
-La manera de instalar R cambia dependiendo del sistema operativo utilices pero todas tienen en común el uso de **CRAN**.
+La manera de instalar R cambia dependiendo del sistema operativo que utilices y en todos los casos depende de **CRAN**, *The Comprehensive R Archive Network*, una red en la que se archivan todas las versiones de R, así como los paquetes para extender su funcionalidad que han aprobado un proceso de revisión riguroso realizado por el *CRAN Team*, encargado de asegurar su correcto funcionamiento.
 
-[CRAN](https://cran.r-project.org/) es el *The Comprehensive R Archive Network*, una red en la que se archivan todas las versiones de R *base*, así como todos los paquetes para R que han pasado por un proceso de revisión riguroso, realizado por el *CRAN Team*, que se encarga de asegurar su correcto funcionamiento.
+CRAN es una red porque existen copias de su contenido en diferentes servidores alrededor del mundo que se actualizan diariamente, por lo que no importa de qué servidor descargues R o algún paquete, obtendrás la versión más reciente de ese recurso, idéntica a la disponible en todos los demás servidores.
 
-CRAN es una red porque existen copias de su contenido en diferentes servidores alrededor del mundo, los cuales se actualizan diariamente. De este modo, no importa de qué servidor de CRAN descargues R o algún paquete, lo que vas a obtener será la versión más reciente de ese recurso, que es igual a la disponible en todos los demás servidores.
-
-Como veremos más adelante, cuando descargamos un paquete de R, lo estamos haciendo desde CRAN, a menos que indiquemos otra cosa.
+Cuando descargas un paquete para R, a menos que indiques algo distinto, lo obtendrás de un servidor de CRAN.
 
 El sitio oficial de CRAN, en el que encontrarás más información sobre este repositorio es el siguiente:
 
 * <https://cran.r-project.org/>
 
+::: {.callout-note title="Nota"}
+Estas instrucciones son para instalar versiones de R superiores a la 4.0.0 en sistemas de 64 bits, que al momento de escribir este texto es lo recomendado para el trabajo cotidiano.
+:::
+
 ## Windows
-Para instalar R en *Windows*, la forma más simple es descargar la versión más reciente de R *base* desde el siguiente enlace de CRAN:
+Para instalar R en *Windows* descargamos la versión más reciente de R *base* desde el siguiente enlace de CRAN:
 
 * <https://cran.r-project.org/bin/windows/base/>
 
-El archivo que necesitamos tiene la extensión **.exe** (por ejemplo *R-3.5.1-win.exe*). Una vez descargado, lo ejecutamos como cualquier instalable.
+El archivo que necesitamos tiene la extensión **.exe** (por ejemplo: *R-4.5.3-win.exe*) y una vez descargado lo ejecutamos como cualquier instalable.
 
 Después de la instalación, estamos listos para usar R.
 
-## OSX
-Para instalar R en *OSX*, se sigue un procedimiento similar que en *Windows*. Necesitamos descargar los archivos binarios de R base desde CRAN y ejecutarlos.
+Los instaladores están desarrollados para Windows 10 y superior. Puedes encontrar información detallada sobre la instalación de R en *Windows* en el siguiente enlace:
+
+* <https://cran.r-project.org/bin/windows/base/rw-FAQ.R-4.5.3.html>
+
+## macOS
+Para instalar R en *macOS* descargamos los archivos binarios de R desde el siguiente enlace de CRAN:
 
 * <https://cran.r-project.org/bin/macosx/>
 
-Al concluir la instalación, podremos usar R, incluso llamándolo directamente desde la consola.
+El archivo que necesitamos tiene la extensión **.pkg** (por ejemplo: *R-4.5.3-arm64.pkg*) y una vez descargado lo ejecutamos como cualquier archivo binario instalable. Al concluir la instalación, podrás usar R, incluso llamándolo directamente desde la consola.
+
+Los archivos binarios están desarrollados para macOS 11 (Big Sur) y superior, tanto los equipos con procesadores Apple Silicon como Intel. Puedes encontrar información detallada sobre la instalación de R en *macOS* en el siguiente enlace:
+
+* <https://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html>
+
 
 ## Linux
-En *Linux*, como suele ser el caso para casi todo, hay una manera fácil y una difícil de instalar R.
+En *Linux* tienes varias maneras para instalar R.
 
-La manera fácil depende de la  presencia de R en los repositorios de la distribución de *Linux* que estés usando. Si R se encuentra en los repositorios de tu distribución, sólo es necesario usar el gestor de paquetes de tu preferencia para instalarlo, como cualquier otro *software*.
+La manera más sencilla depende de la presencia de R en los repositorios de la distribución de *Linux* que estés usando. Si R se encuentra en los repositorios de tu distribución, sólo es necesario usar el gestor de paquetes de tu preferencia para instalarlo, como cualquier otro *software*.
 
-Si R no se encuentra en los repositorios, debes agregar una entrada a tu lista de fuentes de software. Esta entrada depende de tu distribución. 
-
-También tienes la opción de puedes compilar R directamente desde archivos fuente.
-
-Para todas las opciones anteriores, los detalles de instalación se se encuentran en el siguiente enlace:
+Si R no se encuentra en los repositorios, debes agregar una entrada a tu lista de fuentes de software. Esta entrada también depende de tu distribución. En el siguiente enlace puedes encontrar instrucciones para Debian, Fedora, Red Hat, Suse y Ubuntu:
 
 * <https://cran.r-project.org/bin/linux/> 
 
-Si estás usando *Linux* no te debería ser difícil seguir las instrucciones presentadas.
+Finalmente, puedes compilar R directamente desde archivos fuente que se encuentran en la página principal de CRAN, por ejemplo *"R-4.5.3.tar.gz*.
 
-## RStudio - un IDE para R
-Aunque podemos usar R directamente, es recomendable instalar y usar un entorno integrado de desarrollo (*IDE*, por sus siglas en inglés). 
+* <https://cran.r-project.org/>
 
-Podemos utilizar R ejecutando nuestro código directamente desde documentos de texto plano, pero esta es una manera poco efectiva de trabajar, especialmente en proyectos complejos.
+En general, si sigues el procedimiento habitual que usas para instalar *software* en tu distribución de Linux no deberías tener problemas para instalar R.
 
-Un IDE nos proporciona herramientas para escribir y revisar nuestro código, administrar los archivos que estamos usando, gestionar nuestro entorno de trabajo y algunas otras herramientas de productividad. Tareas que serían difíciles o tediosas de realizar de otro modo, son fáciles a través de un IDE.
+## IDEs para R
+Podemos utilizar R ejecutando nuestro código directamente desde documentos de texto plano, pero esta es una manera poco efectiva de trabajar, especialmente en proyectos complejos, por ello es recomendable instalar y usar un entorno integrado de desarrollo (**IDE**, por sus siglas en inglés). 
 
-Hay varias opciones de IDE para R,  y entre ellas mi preferido es [RStudio](https://www.rstudio.com/). Este entorno, además de incorporar las funciones esenciales de una IDE, es desarrollado por un equipo que ha contribuido de manera significativa para lograr que R sea lenguaje de programación más accesible, con un énfasis en la colaboración y la reproducción de los análisis.
+Un IDE nos proporciona herramientas para escribir y revisar nuestro código, administrar los archivos que estamos usando, gestionar nuestro entorno de trabajo y otras herramientas de productividad.
 
-Para instalar RStudio, es necesario con descargar y ejecutar alguno de los instaladores disponibles en su sitio oficial. Están disponibles versiones para Windows MacOS y Linux.
+Tenemos varias opciones de IDE, entre las que destacan Positron y RStudio.
+
+### Positron
+Positron es una IDE especializada en ciencia de datos que permite trabajar con R y Python de manera nativa. Está desarrollada por [Posit](https://posit.co/), los creadores de RStudio, un equipo que ha contribuido de manera significativa para lograr que R sea lenguaje de programación más accesible, con un énfasis en la colaboración y la reproducción de los análisis.
+
+Puedes descargar los instaladores de Positron desde el siguiente enlace, con versiones para *Windows*, *macOS* y *Linux*:
+
+* <https://positron.posit.co/download.html>
+
+Esta es la IDE que uso actualmente, precisamente por la flexibilidad de usar R y Python con mínima configuración y porque cuenta con un amplio catálogo de extensiones que amplían las funciones de Positron, esto porque es esencialmente una versión especializada de [VSCode](https://code.visualstudio.com/), una IDE de uso general desarrollada por Microsoft.
+
+Positron detectará automáticamente las instalaciones de R y Python en nuestro sistema, por lo que si hemos instalado antes los entornos de estos dos lenguajes de programación estará lista para usarse una vez instalada. Si instalamos Positron antes que R o Python, hará la verificación cada que se inicie el programa, por lo que podemos instalarlos después.
+
+### RStudio
+RStudio es una IDE especializada para R, también desarrollada por [Posit](https://posit.co/). Aunque Positron es recomendada por Posit (y por mi), RStudio sigue siendo desarrollada de manera activa y es una IDE que tiene todo lo que necesitas para trabajar con R.
+
+Por muchos años fue la IDE que usé, pero la abandoné porque cada vez más uso de la mano R y Python; aunque RStudio permite el trabajo con Python, la implementación es un tanto incómoda, pero no deja de ser una excelente alternativa.
+
+Puedes descargar y ejecutar los instaladores de RStudio en el siguiente enlace, con versiones para *Windows*, *macOS* y *Linux*.
 
 * <https://www.rstudio.com/products/rstudio/download/> 
 
-Si ya hemos instalado R en nuestro equipo, RStudio lo detectará automáticamente y podremos utilizarlo desde este entorno. Si no instalamos RStudio antes que R, no hay problema, cada vez que iniciamos este programa, verificará la instalación de R.
+Si ya hemos instalado R en nuestro equipo, RStudio lo detectará automáticamente y podremos utilizarlo inmediatamente. Si instalamos RStudio antes que R no hay problema, cada vez que iniciamos este programa verificará la instalación de R.
 
-## Positron - un IDE para análisis de datos
+### VSCode
+También es posible usar R en VSCode, pero esto requiere de más configuración que, si están iniciando en el trabajo con entornos de programación, puede resultar compleja.
 
-Positron es una IDE especializada en ciencia de datos que permite trabajar con R y Python de manera nativa. Esta IDE es desarrollada por Posit, los creadores de RStudio, y es la IDE que uso actualmente. 
+Puedes descargar los instaladores de VSCode desde el siguiente enlace, con versiones para *Windows*, *macOS* y *Linux*.
 
-* <https://positron.posit.co/>
+* <https://code.visualstudio.com/download>
 
-Positron es, esencialmente, una versión especializada de [VSCode](https://code.visualstudio.com/), la IDE de uso general desarrollada por Microsoft, lo cual trae consigo el beneficio de tener acceso a muchas de las extensiones desarrolladas por ella.
+Una vez que haz instalado VSCode, es necesario instalar el paquete **languageserver** en R:
 
-Al igual que RStudio, Positron detectará automáticamente las instalaciones de R y Python en nuestro sistema.
+```{r languageserver, eval=FALSE}
+install.packages("languageserver")
+```
 
-Puede instalarse en Windows, MacOS y Linux:
+Final mente, es necesario instalar las extensiones para trabajar con R:
 
-* <https://positron.posit.co/download.html>
+* R. <https://marketplace.visualstudio.com/items?itemName=REditorSupport.r>
+* R Syntax. <https://marketplace.visualstudio.com/items?itemName=REditorSupport.r-syntax>
+
+Una vez hecho esto podrás usar R como cualquier otro lenguaje de programación dentro de VSCode.
