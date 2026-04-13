@@ -93,7 +93,7 @@ Función           | Tipo al que hace coerción
 `as.logical()`    | Lógico
 `as.null()`       | `NULL`
 
-Todas estas funciones aceptan como argumento datos o vectores (veremos qué es un vector en el [capítulo 6](#estructuras-de-datos)). 
+Todas estas funciones aceptan como argumento datos o vectores (veremos qué es un vector en el [Capítulo @sec-estructuras-datos]). 
 
 Cuando estas funciones tienen éxito en la coerción, nos devuelven datos del tipo pedido. Si fallan, obtenemos `NA` como resultado.
 

@@ -4,7 +4,7 @@ Para trabajar con R es necesario conocer un poco del vocabulario usado en en est
 ## La consola de R
 Lo primero que nos encontramos al ejecutar R es una pantalla que nos muestra la versión de este lenguaje que estamos ejecutando y un *prompt*:
 
-`>_                                               ` 
+`>_`
 
 Esta es la consola de R y corresponde al **entorno computacional** de este lenguaje. Es aquí donde nuestro **código** es interpretado.
 
@@ -58,10 +58,10 @@ Finalmente, cuando te encuentres con un renglón de código que inicia con un ga
 # Este es un comentario
 ```
 
-## Funciones (introducción básica)
+## Funciones
 Una función es **una serie de operaciones a la que les hemos asignados un nombre**. Las funciones aceptan **argumentos**, es decir, especificaciones sobre cómo deben funcionar.
 
-Cuando llamamos una función, se realizan las operaciones que contiene, usando los argumentos que hemos establecido.
+Cuando llamamos una función, se realizan las operaciones que se le han asignado usando los argumentos establecidos y se nos devuelve el resultado de ellas.
 
 En R reconocemos a una función usando la notación: `nombre_de_la_función()`. Por ejemplo:
 
@@ -75,7 +75,7 @@ Al igual que con las variables, se recomienda que los nombres de las funciones s
 
 Aunque estrictamente hablando una función es un objeto, para fines de explicación, en este libro nos referiremos a ambos como si fueran cosas diferentes.
 
-Las funciones son un tema que revisamos más adelante. Por el momento, recuerda que una función realiza operaciones y nos pide argumentos para poder llevarlas a cabo.
+Las funciones son el tema del [Capítulo @sec-funciones], por el momento recuerda que una función realiza operaciones y nos pide argumentos para poder llevarlas a cabo.
 
 ## Documentación
 Las funciones de R *base* y aquellas que forman parte de paquete tienen un archivo de documentación.
@@ -92,7 +92,7 @@ Los dos procedimientos siguientes son equivalentes.
 help("mean")
 ```
 
-Si usas RStudio, la documentación de la función se mostrará en uno de los paneles de este IDE. Si estas usando R directamente, se abrirá una ventana de tu navegador de Internet.
+Si usas Positron o RStudio la documentación de la función se mostrará en uno de los paneles de esta IDE y si estas usando R directamente se abrirá una ventana de tu navegador de Internet.
 
 También podemos obtener la documentación de un paquete, si damos el argumento `package` a la función `help()`, con el nombre de un paquete.
 
@@ -101,7 +101,6 @@ Por ejemplo, la documentación del paquete **stats**, instalado por defecto en R
 #| eval: false
 help(package = "stats")
 ```
-
 
 ## Directorio de trabajo
 El directorio o carpeta de trabajo es el lugar en nuestra computadora en el que se encuentran los archivos con los que estamos trabajando en R. Este es el lugar donde R buscara archivos para importarlos y al que serán exportados, a menos que indiquemos otra cosa.

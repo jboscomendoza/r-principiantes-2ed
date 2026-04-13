@@ -741,7 +741,7 @@ En el orden de operaciones definido, ocurre primero la multiplicación y despué
 1 * 2 + 3
 ```
 
-Si encerramos entre paréntesis la suma, esta ocurrira primero y después la multiplicación
+Si encerramos entre paréntesis la suma, esta ocurrirá primero y después la multiplicación
 
 ```{r parentesis_simple_2}
 1 * (2 + 3)
@@ -776,4 +776,4 @@ Si tenemos paréntesis tanto en el lado izquierdo como en el derecho de una oper
 (4 / 2) ^ (8 / 4)
 ```
 
-Este ha sido un capítulo largo, pero los operadores es un aspecto fundamental para escribir código, no solo en R, sino en cualquier lenguaje de programación, por lo que vale la pena dedicar tiempo para comprenderlos.
+Este ha sido un capítulo largo, pero los operadores es un aspecto fundamental para escribir código, no solo en R, sino en cualquier lenguaje de programación, por lo que vale la pena dedicar tiempo a su comprensión.

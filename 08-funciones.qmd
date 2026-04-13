@@ -5,7 +5,7 @@ Sin embargo, es común que necesitemos realizar tareas para las que no existe un
 
 Ilustremos lo anterior con un ejemplo.
 
-## ¿Por qué necesitamos crear nuestrar propias funciones?
+## ¿Por qué necesitamos crear nuestrar propias funciones? {#sec-funciones-porque}
 Supongamos que tenemos un jefe que nos ha pedido crear un histograma con datos de edad que hemos recogido en una encuesta. 
 
 Esto es sencillo de resolver pues contamos con la función `hist()` que hace exactamente esto. Sólo tenemos que dar un vector numérico como argumento para generar una gráfica (veremos esto con más detalle en el [Capítulo @sec-graficas].
@@ -68,7 +68,7 @@ Y si tu jefe en esta ejemplo quiere que agregues, quites o modifiques tu histogr
 
 Es en situaciones como esta en las que se hace evidente la necesidad de crear nuestras propias funciones, capaces de realizar una tarea específica a nuestros problemas, y que pueda usarse de manera repetida. Así reducimos errores, facilitamos hacer correcciones o cambios y nos hacemos la vida más fácil, a nosotros y a quienes usen nuestro código después.
 
-## Funciones definidas por el usuario
+## Funciones definidas por el usuario {#sec-funciones-usuario}
 Una función tiene un nombre, argumentos y un cuerpo. Las funciones definidas por el usuario son creadas usando la siguiente estructura.
 ```{r}
 nombre <- function(argumentos) {
@@ -94,7 +94,7 @@ Una ventaja de usar RStudio es que nos indica errores de sintaxis en nuestro có
 
 Para ver esto en acción, crearemos una función sencilla para obtener el área de un cuadrilátero.
 
-## Nuestra primera función
+## Nuestra primera función {#sec-funciones-primera}
 Partimos del algoritmo para calcular el área de un cuadrilátero: `lado x lado`.
 
 Podemos convertir esto a operaciones de R y asignarlas a una función llamada `area_cuad` de la siguiente manera:
@@ -161,7 +161,7 @@ area_prisma(3, 6, 9)
 
 Con esto estamos listos para definir una función para crear histogramas con las características que nos pidió nuestro jefe hipotético.
 
-## Definiendo la función `crear_histograma()`
+## Definiendo la función `crear_histograma()` {#sec-funciones-histograma}
 Definiremos una función con el nombre `crear_histograma()` para generar un gráfico con las especificaciones que se nos han pedido. 
 
 Partimos de una función sin argumentos y el cuerpo vacío.
@@ -244,7 +244,7 @@ Una manera simple de documentar tus funciones es con comentarios.
 # - nombre: Una cadena de texto.
 ```
 
-### Ejecutando 
+### Ejecutando {#sec-funciones-ejecucion}
 Ahora, podremos cumplir con la solicitud de nuestro jefe ficticio usando cincuenta llamadas a una función en lugar de correr más de cuatrocientas líneas de código y que hemos reducido la probabilidad de cometer errores. 
 
 Además, si a nuestro jefe se le ocurren nuevas características para los histogramas, basta con cambiar el cuerpo de nuestra función una vez y esto se verá reflejado en nuestro cincuenta casos al correr de nuevo el código.

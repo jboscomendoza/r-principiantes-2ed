@@ -1,4 +1,4 @@
-# Estructuras de datos {#sec-estructuras}
+# Estructuras de datos {#sec-estructuras-datos}
 Las estructuras de datos son las maneras en que los objetos contienen datos, cuando trabajamos con R lo que estamos haciendo es manipular estas estructuras.
 
 Lo que que distingue a una estructura de otra son dos características principales: su número de **dimensiones**, y si es **homogenea** o **hereterogenea**, es decir, si contiene datos que comparten el mismo tipo o contiene datos de diferentes tipos, respectivamente.
@@ -14,7 +14,7 @@ n          | Array     |
 
 Veamos las características de cada una de ellas.
 
-## Vectores
+## Vectores {#sec-estructuras-vectores}
 Un vector es la estructura de datos más sencilla en R. Un vector es una colección unidimensional de uno o más datos homogéneos. Los vectores son **atómicos**, pues sólo pueden contener datos de un único tipo, no es posible mezclar datos de tipos diferentes dentro de ellos.
 
 Todos los vectores tienen tres propiedades:
@@ -46,7 +46,7 @@ is.vector("tres")
 is.vector(TRUE)
 ```
 
-### Creación de vectores
+### Creación de vectores {#sec-estructuras-vectores-creacion}
 Creamos vectores usando la función `c()` (*combinar*). 
 
 Llamamos esta función y le damos como argumento los elementos que deseamos combinar en un vector, separados por comas.
@@ -138,7 +138,7 @@ Si nuestro número de inicio tiene cifras decimales, estas serán respetadas al 
 968:960.928
 ```
 
-### Vectorización de operaciones
+### Vectorización de operaciones {#sec-estructuras-vectores-vectorizacion}
 Existen algunas operaciones al aplicarlas a un vector, se aplican a cada uno de sus elementos. A este proceso le llamamos **vectorización**.
 
 Las operaciones aritméticas y relacionales pueden vectorizarse. Si las aplicamos a un vector, la operación se realizará para cada uno de los elementos que contiene.
@@ -167,7 +167,7 @@ Esta manera de aplicar una operación es muy eficiente. Comparada con otros proc
 
 Aunque el nombre de este proceso es **vectorización**, también funciona, en ciertas circunstancias, para otras estructuras de datos.
 
-## Matrices y arrays
+## Matrices y arrays {#sec-estructuras-matrices}
 Las matrices y arrays pueden ser descritas como **vectores multidimensionales**. Al igual que un vector, únicamente pueden contener datos de un sólo tipo, pero además de largo, tienen más dimensiones.
 
 En un sentido estricto, las matrices son una caso especial de un array, que se distingue por tener **específicamente dos dimensiones**, un "largo"" y un "alto". Las matrices son, por lo tanto, una estructura con forma rectangular, con renglones y columnas.
@@ -178,7 +178,7 @@ Los arrays, por su parte, pueden tener un número arbitrario de dimensiones. Pue
 
 En general, es preferible usar listas en lugar de arrays, una estructura de datos que además tienen ciertas ventajas que veremos más adelante.
 
-### Creación de matrices
+### Creación de matrices {#sec-estructuras-matrices-creacion}
 Creamos matrices en R con la función `matrix()`. La función `matrix()` acepta dos argumentos, `nrow` y `ncol`. Con ellos especificamos el número de renglones y columnas que tendrá nuestra matriz.
 ```{r}
 # Un vector numérico del uno al doce
@@ -275,7 +275,7 @@ matriz
 
 Como `NA` representa datos perdidos, puede estar presente en compañía de todo tipo de de datos.
 
-### Propiedades de las matrices
+### Propiedades de las matrices {#sec-estructuras-matrices-propiedades}
 No obstante que las matrices y arrays son estructuras que sólo pueden contener un tipo de datos, no son atómicas. Su clase es igual a **matriz (matrix)** o **array** según corresponda.
 
 Verificamos esto usando la función `class()`.
@@ -360,7 +360,7 @@ matriz_t
 
 Obtenemos una matriz con dos renglones y dos columnas.
 
-## Data frames
+## Data frames {#sec-estructuras-dataframes}
 Los data frames son estructuras de datos de dos dimensiones (rectangulares) que pueden contener datos de diferentes tipos, por lo tanto, son heterogéneas. Esta estructura de datos es la más usada para realizar análisis de datos y seguro te resultará familiar si has trabajado con otros paquetes estadísticos.
 
 Podemos entender a los data frames como una versión más flexible de una matriz. Mientras que en una matriz todas las celdas deben contener datos del mismo tipo, los renglones de un data frame admiten datos de distintos tipos, pero sus columnas conservan la restricción de contener datos de un sólo tipo.
@@ -434,7 +434,7 @@ class(df)
 df
 ```
 
-### Propiedades de un data frame
+### Propiedades de un data frame {#sec-estructuras-dataframes-propiedades}
 Al igual que con una matriz, si aplicamos una operación aritmética a un data frame, esta se vectorizará. 
 
 Los resultados que obtendremos dependerán del tipo de datos de cada columna. R nos devolverá todas las advertencias que ocurran como resultado de las operaciones realizadas, por ejemplo, aquellas que hayan requerido una coerción.
@@ -450,7 +450,7 @@ mi_df <- data.frame(
 mi_df * 2
 ```
 
-## Listas
+## Listas {#sec-estructuras-listas}
 Las listas, al igual que los vectores, son estructuras de datos unidimensionales, sólo tienen largo, pero a diferencia de los vectores cada uno de sus elementos puede ser de diferente tipo o incluso de diferente clase, por lo que son estructuras heterogéneas.
 
 Podemos tener listas que contengan datos atómicos, vectores, matrices, arrays, data frames u otras listas. Esta última característica es la razón por la que una lista puede ser considerada un vector recursivo, pues es un objeto que puede contener objetos de su misma clase.
@@ -479,7 +479,7 @@ lista_recursiva <- list("lista1" = mi_lista, "lista2" = mi_lista)
 lista_recursiva
 ```
 
-### Propiedades de una lista
+### Propiedades de una lista {#sec-estructuras-listas-propiedades}
 Una lista es unidimensional, sólo tiene largo.
 
 El largo de una lista es igual al número de elementos que contiene, sin importar de qué tipo o clase sean. Usamos la lista recursiva que creamos en la sección anterior para ilustrar esto.
@@ -505,7 +505,7 @@ mi_lista / 2
 
 Si deseamos aplicar una función a cada elemento de una lista, usamos `lapply()`, como veremos en el [capítulo 10](#apply).
 
-## Coerción
+## Coerción {#sec-estructuras-coercion}
 Al igual que con los datos, cuando intentamos hacer operaciones con una estructura de datos, R intenta coercionarla al tipo apropiado para poder llevarlas a cabo con éxito.
 
 También podemos usar alguna de las funciones de la familia `as()` coercionar de un tipo de estructura de datos. A continuación se presentan las más comunes.

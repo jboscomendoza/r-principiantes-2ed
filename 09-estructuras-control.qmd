@@ -1,4 +1,4 @@
-# Estructuras de control {#sec-estructuras}
+# Estructuras de control {#sec-control}
 Como su nombre lo indica, las estructuras de control nos permiten controlar la manera en que se ejecuta nuestro código. 
 
 Las estructuras de control establecen **condicionales** en nuestros código. Por ejemplo, qué condiciones deben cumplirse para realizar una operación o qué debe ocurrir para ejecutar una función.
@@ -15,7 +15,7 @@ Las estructuras de control más usadas en R son las siguientes.
 | `break`               | Interrupción
 | `next`                | Siguiente
 
-## if, else
+## if, else {#sec-control-if}
 `if` (si) es usado cuando deseamos que una operación se ejecute únicamente cuando una condición se cumple. 
 
 `else` (de otro modo) es usado para indicarle a R qué hacer en caso de la condición de un `if` no se cumpla. 
@@ -81,7 +81,7 @@ if(4 > 5) {
 }
 ```
 
-### Usando if y else
+### Usando if y else {#sec-control-if-uso}
 Para ilustrar el uso de `if` `else` definiremos una función que calcule el promedio de calificaciones de un estudiante y, dependiendo de la calificación calculada, nos devuelva un mensaje específico.
 
 Empezamos definiendo una función para calcular promedio. En realidad, sólo es la aplicación de la función `mean()` ya existente en R *base*, pero la ampliaremos después.
@@ -143,9 +143,9 @@ promedio(c(6, 7, 8, 9, 8))
 promedio(c(5, 8, 5, 6, 5))
 ```
 
-Por supuesto, como lo vimos en el capítulo sobre [funciones](#funciones), podemos hacer aún más compleja a `promedio()`, pero esto es suficiente para conocer mejor las aplicaciones de `if` `else`.
+Por supuesto, como lo vimos en el [Capítulo @sec-sec-funciones], podemos hacer aún más compleja la función `promedio()`, pero esto es suficiente para conocer mejor las aplicaciones de `if` `else`.
 
-### ifelse
+### ifelse {#sec-control-if-ifelse}
 La función `ifelse( )` nos permite vectorizar `if, else`. En lugar de escribir una línea de código para cada comparación, podemos usar una sola llamada a esta función, que se aplicará a todos los elementos de un vector.
 
 Si intentamos usar `if` `else` con un vector, se nos mostrará una advertencia.
@@ -198,7 +198,7 @@ num
 ```
 
 
-## for 
+## for {#sec-control-for}
 La estructura `for` nos permite ejecutar un bucle (*loop*), realizando una operación para cada elemento de un conjunto de datos.
 
 Su estructura es la siguiente:
@@ -232,7 +232,7 @@ for(i in objeto) {
 Tradicionalmente se usa la letra **i** para denotar al elemento, pero nosotros usaremos nombres más descriptivos en este capítulo.
 
 
-### Usando for
+### Usando for {#sec-control-for-uso}
 Vamos a obtener el cuadrado de cada uno de los elementos en un vector numérico del 1 al 6, que representa las caras de un dado.
 ```{r} 
 dado <- 1:6
@@ -287,19 +287,19 @@ Aunque no fueron mostrados en la consola, los resultados han sido asignados al o
 mi_vector
 ```
 
-### for y vectorización
+### for y vectorización {#sec-control-for-vectorizacion}
 Notarás que el resultado que obtuvimos usando **for** es el mismo que si vectorizamos la operación.
 ```{r}
 dado ^ 2
 ```
 
-Dado que en R contamos con vectorización de operaciones, que podemos usar las funciones de [la familia apply](#la-familia-apply) (discutido en siguiente capítulo) en objetos diferentes a vectores y que la manera de recuperar los resultados de un `for` es un tanto laboriosa, este tipo de bucle no es muy popular en R. 
+Dado que en R contamos con vectorización de operaciones, que podemos usar las funciones de la familia apply (revisado en el [Capítulo @sec-apply]) en objetos diferentes a vectores y que la manera de recuperar los resultados de un `for` es un tanto laboriosa, este tipo de bucle no es muy popular en R. 
 
 En R generalmente hay opciones mejores, en cuanto a simplicidad y velocidad de cómputo, que un bucle `for`.
 
 Sin embargo, es conveniente que conozcas esta estructura de control, pues hay ocasiones en la que es la mejor herramienta para algunos problemas específicos.
 
-## while
+## while {#sec-control-while}
 Este es un tipo de bucle que ocurre **mientras** una condición es verdadera (`TRUE`). La operación se realiza hasta que se se llega a cumplir un criterio previamente establecido.
 
 El modelo de **while** es:
@@ -316,7 +316,7 @@ Con esto le decimos a R:
 
 La condición generalmente es expresada como el resultado de una o varias operaciones de comparación, pero también puede ser el resultado de una función.
 
-### Usando while
+### Usando while {#sec-control-while-uso}
 Probemos sumar `+1` a un valor, mientras que este sea menor que 5. Al igual que con `for`, necesitamos la función `print()` para mostrar los resultados en la consola.
 ```{r}
 umbral <- 5
@@ -390,12 +390,12 @@ while("dado" == "ficha") {
 conteo
 ```
 
-## break y next
+## break y next {#sec-control-breaknext}
 `break` y `next`  son  **palabras reservadas** en R, no podemos asignarles nuevos valores y realizan una operación específica cuando aparecen en nuestro código.
 
 `break` nos permite **interrumpir** un bucle, mientras que `next` nos deja avanzar a la **siguiente** iteración del bucle, "saltándose" la actual. Ambas funcionan para `for` y `while`.
 
-### Usando break
+### Usando break {#sec-control-break-uso}
 Para interrumpir un bucle con `break`, necesitamos que se cumpla una condición. Cuando esto ocurre, el bucle se detiene, aunque existan elementos a los cuales aún podría aplicarse.
 
 Interrumpimos un `for` cuando `i` es igual a 3, aunque aún queden 7 elementos en el objeto.
@@ -424,7 +424,7 @@ numero
 
 Como habrás notado, la  aplicación de `break` es muy similar a `while`, realizar una operación hasta que se cumple una condición, y ambos pueden usarse en conjunto.
 
-### Usando next
+### Usando next {#sec-control-next-uso}
 Por su parte, usamos next para "saltarnos" una iteración en un bucle. Cuando la condición se cumple, esa iteración es omitida. 
 ```{r}
 for(i in 1:4) {
@@ -439,7 +439,7 @@ Estas dos estructuras de control nos dan un control fino sobre nuestro código. 
 
 En realidad, **break** es indispensable para **repeat**.
 
-## repeat
+## repeat {#sec-control-repeat}
 Este es un bucle que se llevará a cabo el número de veces que especifiquemos, usando un `break` para detenerse. `repeat` asegura que las operaciones que contiene sean iteradas al menos en una ocasión.
 
 La estructura de **repeat** es el siguiente:

@@ -11,8 +11,14 @@
 
 * Peng, R. D. (2016). *R Programming for Data Science*. Leanpub.
  <https://leanpub.com/rprogramming>
-* Wickham, H., Çetinkaya-Rundel, M., Grolemund, G. (2023). *R para la Ciencia de Datos*, segunda edición. O’Reilly.
+* Wickham, H., Çetinkaya-Rundel, M., Grolemund, G. (2023). *R para la Ciencia de Datos*, segunda edición. O’Reilly. <https://es.r4ds.hadley.nz/>
  <https://davidrsch.github.io/r4ds-es//>
+* Neth, H. (2026). *Data Science for Psychologists*. <https://hneth-ds4psy.share.connect.posit.cloud/>
+
+
+## Gráficas con R
+* Chang, W. (2026). *R Graphics Cookbook, 2nd edition*.  O' Reilly. <https://r-graphics.org/>
+
 
 ## Programación con R (avanzado)
 

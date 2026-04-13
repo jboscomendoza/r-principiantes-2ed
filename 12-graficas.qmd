@@ -3,33 +3,186 @@ R cuenta con un sistema de generación de gráficas poderoso y flexible. Sin emb
 
 En este capítulo revisaremos como crear las gráficas más comunes con R *base*, así como algunos de los parámetros que podemos ajustar para mejorar su presentación. 
 
+Para crear gráficas pondrás en práctica todo lo que hemos visto en los capítulos anteriores de este libro, desde importar datos y obtener subconjuntos de un objeto, hasta usar funciones.
 
-Al crear gráficas, notarás que ponemos en práctica todo lo que hemos visto en los capítulos anteriores, incluyendo importar datos, hacer subconjuntos de un objeto y uso de funciones.
+## La función `plot()` {#sec-graficas-plot}
+En R, la función `plot()` es usada de manera general para crear gráficas.
 
-## Datos usados en el capítulo
-Para las siguientes secciones utilizaremos de nuevo una copia de los datos disponibles en el [*UCI Machine Learning Repository*](https://archive.ics.uci.edu/ml/index.php).
+Esta función tiene un comportamiento especial, pues de acuerdo con el tipo de dato que le demos como argumento generará diferentes tipos de gráfica. Además, para cada tipo de gráfica, podemos ajustar diferentes parámetros que controlan su aspecto dentro de esta misma función.
 
-Usaremos un conjunto de datos llamado *"Bank Marketing Data Set"*, que contiene información de personas contactadas en una campaña de *marketing* directo puesta en marcha por un banco de Portugal.
+Puedes imaginar a `plot()` como una especie de navaja Suiza multi-funcional, que tiene una herramienta específica para cada ocasión.
+
+`plot()` siempre pide un argumento `x`, que debe ser un vector y corresponde al **eje X** de una gráfica. Si no especificamos este argumento, obtendremos un error y no se creará una gráfica. El resto de los argumentos de `plot()` son opcionales, pero con mucha frecuencia usaremos el argumento `y`, que también requiere un vector y corresponde al **eje Y** de una gráfica. 
+
+Según el tipo de dato del vector que demos a los argumentos `x` y `y` será la gráfica que obtendremos, de acuerdo a las siguientes reglas:
+
+Tipo de datos en `x`| Tipo de datos en `y`| Gráfica obtenida
+---       |---          |---
+Continuo  | Continuo    | Diagrama de dispersión (*scatterplot*)
+Continuo  | Discreto    | Diagrama de dispersión, `y` es coercionado a numérico
+Continuo  | Ninguno     | Diagrama de dispersión, `y` corresponde al número de renglón de los datos
+Discreto  | Continuo    | Diagrama de caja (*Box plot*)
+Discreto  | Discreto    | Gráfica de mosaico (diagrama de Marimekko)
+Discreto  | Ninguno     | Gráfica de barras
+Ninguno   | Cualquiera  | Error
+
+En donde los tipos de dato son:
+
+* **Continuo**: Un vector numérico, entero, lógico o complejo.
+* **Discreto**: Un vector de factores.
+
+Además de `plot()`, hay funciones que generan tipos específicos de gráfica. Por ejemplo, podemos crear una gráfica de barras con `plot()` pero existe también la función `barplot()`. También existen también casos como el de los histogramas, que sólo pueden ser creados con la función `hist()`.
+
+Cuando llamas a la función `plot()` o alguna otra que genere un gráfico, R abre una ventana para mostrarlo. Si usas Positron o RStudio, el gráfico aparecerá en el panel **Plots**, si llamas de nuevo la función `plot()` u otra que genere un gráfico, se creará una nueva pestaña en ese mismo panel, por lo que podrás ir y venir entre todos los que generes durante una sesión. Sin embargo, sin cierras tu IDE, el gráfico se perderá, por ello es importante aprender a exportarlos, algo que veremos más adelante en este mismo capítulo en la [sección @sec-graficas-exportar].
+
+## Sobre el funcionamiento de las gráficas en R {#sec-graficas-funcionamiento}
+Cuando llamas a la función `plot()` o alguna otra que inicie una gráfica nueva, R abre un **device** (dispositivo) gráfico que funcionará como un lienzo para dibujar la gráfica generada. Este **device** es generalmente una ventana de tu sistema operativo o un panel en tu IDE, un **screen device** o dispositivo de pantalla, pero también puede ser un archivo PDF, JPG, PNG o SVG, entre otros [@peng2020]. 
+
+Mientras el **device** esté abierto, puedes usar funciones como `title()` o `lines()` para agregar elementos a la gráfica. Es decir, con ellas estás dibujando elementos adicionales sobre la gráfica, en el mismo lienzo.
+
+En cambio, si vuelves a llamar a la función `plot()` o alguna otra que inicie una gráfica, el **device** que está usando R se cerrará y se abrirá uno nuevo, con una gráfica nueva. Si estás usando R directamente, el primer **device** abierto se perderá y será reemplazado con el nuevo, mientras que si usas un IDE, se creará una nueva pestaña para mostrar la gráfica nueva.
+
+Usamos la función `dev.off()` para cerrar un **device** y con ello le indicamos a R que hemos terminado con la gráfica que estamos trabajando y deje de dibujar elementos en el lienzo que hemos abierto. Una vez hecho esto, la siguiente gráfica que generemos abrirá un **device nuevo**. Más adelante en este capítulo
+
+## Los colores en R {#sec-graficas-colores}
+El color es uno de los elementos más importantes de una gráfica, nos sirve para distinguir categorías, enfatizar datos, organizar información y atraer la atención de nuestra audiencia. En R tenemos varias maneras de definir colores y en este capítulo revisaremos dos de ellas.
+
+Una primera manera de definir un color es con un **nombre de color** como `"red"`, `"black"`, `"purple"` o `"ivory"`. Estos son nombres de colores en inglés que R interpreta como colores específicos; puedes ver una lista de los nombres de los 657 nombres de colores válidos llamando a la función `colors()`. 
+
+Por ejemplo, estos son los primeros 24 nombres de colores.
+
+```{r colors()}
+colors()[1:24]
+```
+
+Varios colores tienen múltiples variaciones, como `"aquamarine"` que tiene `"aquamarine1"`. `"aquamarine2"`, `"aquamarine3"` y `"aquamarine4"`, mientras que otros son únicos, como `"aliceblue"`. No hay una regla para reconocer qué colores tienen variaciones y cuales no, por lo que es recomendable que consultes la lista que devuelve `colors()` para asegurar que estás usando un color válido.
+
+Los colores mencionados en el párrafo anterior lucen de la siguiente forma.
+
+```{r demo-aquamarine}
+#| echo: FALSE
+#| fig-height: 3
+plot(
+  factor(c(
+    "aliceblue",
+    "aquamarine",
+    "aquamarine1",
+    "aquamarine2",
+    "aquamarine3",
+    "aquamarine4"
+  )),
+  col = c(
+    "aliceblue",
+    "aquamarine",
+    "aquamarine1",
+    "aquamarine2",
+    "aquamarine3",
+    "aquamarine4"
+  ),
+ yaxt='n'
+)
+```
+
+Una segunda manera de definir colores es usar **códigos hexadecimales**. Un código de este tipo está formado por el símbolo **#** y seis caracteres que representan cantidades en base numérica hexadecimal, como este: * `"#6600ff"`.
+
+Donde:
+
+* El primer y segundo carácter corresponden a la cantidad de color **rojo**.
+* El tercer y cuarto carácter corresponden a la cantidad de color **verde**.
+* El quinto y sexto corresponden carácter a la cantidad de color **azul**.
+
+Todos expresan valores hexadecimales que van de 0 (0 en base decimal) a f (255 en base decimal).
+
+En el código anterior, tenemos una cantidad de rojo igual a 66 (102 en base decimal), una cantidad de verde igual a 00 (0 en base decimal) y una cantidad de azul igual a ff (255 en base decimal); cuya combinación de colores nos dará como resultado un morado que luce de la siguiente manera.
+
+```{r hex_morado}
+#| echo: FALSE
+#| fig-height: 3
+plot(
+  factor(c(
+    "#6600ff"
+  )),
+  col = c(
+    "#6600ff"
+  ),
+ yaxt='n'
+)
+```
+
+Puedes observar la diferencia en colores obtenidos con diferentes combinaciones de rojo, verde y azul.
+
+* `"#00d70f"`
+* `"#c3c3c3"`
+* `"#d19f00"`
+
+```{r hex_tres}
+#| echo: FALSE
+#| fig-height: 3
+plot(
+  factor(c(
+  "#00d70f",
+  "#c3c3c3",
+  "#d19f00"
+  )),
+  col = c(
+  "#00d70f",
+  "#c3c3c3",
+  "#d19f00"
+  ),
+ yaxt='n'
+)
+```
+
+En R, es indiferente si usas letras mayusculas o minúsculas, incluso puedes combinarlas en el mismo código, por lo tanto `"#aabbff"`, `"#AabBfF"` y `"#AABBFF"` son equivalentes.
+
+```{r hex_altas_y_bajas}
+#| echo: FALSE
+#| fig-height: 3
+plot(
+  factor(c(
+    "#aabbff",
+    "#AabBfF",
+    "#AABBFF"
+  )),
+  col = c(
+    "#aabbff",
+    "#AabBfF",
+    "#AABBFF"
+  ),
+ yaxt='n'
+)
+```
+
+En el siguiente enlace puedes encontrar una *web app* para generar y elegir fácilmente colores y su código hexadecimal.
+
+* <https://www.w3schools.com/colors/colors_picker.asp>
+
+Para conocer más sobre el uso de color en R puedes consultar el siguiente enlace.
+
+* <https://bookdown.org/hneth/ds4psy/D.3-apx-colors-basics.html>
+
+## Datos usados en este capítulo {#sec-graficas-datos}
+Para las siguientes secciones utilizaremos de nuevo una copia de los datos disponibles en el [*UCI Machine Learning Repository*](https://archive.ics.uci.edu/ml/index.php), en esta ocasión será un conjunto de datos llamado **Bank Marketing Data Set** que contiene información de personas contactadas en una campaña de *marketing* directo puesta en marcha por un banco de Portugal.
 
 Comenzamos con la descarga de la copia del archivo **csv** desde el sitio de *Github* de este libro.
 ```{r dl bank, echo=TRUE, eval=FALSE}
 download.file(
-  url = "https://raw.githubusercontent.com/jboscomendoza/r-principiantes-2ed/master/datos/bank.csv", 
+  url = "https://raw.githubusercontent.com/jboscomendoza/r-principiantes-2ed/master/datos/bank.csv",
   destfile = "bank.csv"
-  )
+)
 ```
 
 Damos un vistazo al contenido del archivo **bank.csv** con `readLines()`.
 ```{r readLines banco, echo=TRUE}
-readLines("bank.csv", n = 4) 
+readLines("bank.csv", n = 4)
 ```
 
-Por la estructura de los datos, podremos usar la función  `read.csv()`, con el argumento `sep = ";"` para importarlos como un data frame.
+Por la estructura de los datos, podremos usar la función `read.csv()`, con el argumento `sep = ";"` para importarlos como un data frame.
 ```{r importar banco, echo=TRUE}
 banco <- read.csv(file = "bank.csv", sep = ";")
 ```
 
-Vemos las primeras líneas del conjunto con `head()`, el número de renglones y columnas con  `dim()`.
+Vemos las primeras líneas del conjunto con `head()`, el número de renglones y columnas con `dim()`.
 ```{r explora banco, echo?TRUE}
 # Primeros datos
 head(banco)
@@ -38,306 +191,347 @@ head(banco)
 dim(banco)
 ```
 
-Usamos `lapply()` con la función `class()` para determinar el tipo de dato de cada columna en `banco`. Conocer esto nos será muy útil más adelante.
+Usamos `lapply()` con la función `class()` para conocer el tipo de dato de cada columna en `banco`. Como el tipo de gráfico que podemos generar depende del tipo de datos que demos como argumento hacer esto nos será muy útil más adelante.
 ```{r lapplyclass banco, echo=TRUE}
 lapply(banco, class)
 ```
 
-Y por último, pedimos un resumen de nuestros datos con la función `summary()`. Esta función acepta cualquier tipo de objeto como argumento y nos devuelve un resumen descriptivo de los datos de cada uno de sus elementos.
+Tenemos columnas con datos continuos, de tipo entero, así como datos discretos de tipo cadena de texto. Para poder generar gráficas usando estos últimos usaremos la función `factor()` para transformarlos a tipo factor.
+
+Por último, pedimos un resumen de nuestros datos con la función `summary()`. Esta función acepta cualquier tipo de objeto como argumento y nos devuelve un resumen descriptivo de los datos de cada uno de sus elementos.
+
 ```{r banco summary, echo=TRUE}
 summary(banco)
 ```
 
-## La función `plot()`
-En R, la función `plot()` es usada de manera general para crear gráficos.
+## Histogramas {#sec-graficas-histogramas}
+Un histograma es una gráfica que muestra la distribución de una serie de datos numéricos usando barras. Cada barra representa el número de veces, frecuencia, con la que se observaron datos en un rango determinado.
 
-Esta función tiene un comportamiento especial, pues dependiendo del tipo de dato que le demos como argumento, generará diferentes tipos de gráfica. Además, para cada tipo de gráfico, podremos ajustar diferentes parámetros que controlan su aspecto, dentro de esta misma función.
+Para crear un histograma usamos la función `hist()`, que siempre nos pide como argumento `x` un vector numérico, mientras que el resto de los argumentos de esta función son opcionales. Si damos un vector no numérico, se nos devolverá un error.
 
-Puedes imaginar a  `plot()` como una especie de navaja Suiza multi-funcional, con una herramienta para cada ocasión.
+Ya trabajamos con esta función en el [Capítulo @sec-funciones-histograma] y ahora profundizaremos sobre su uso.
 
-`plot()` siempre pide un argumento `x`, que corresponde al **eje X** de una gráfica. `x` requiere un vector y si no especificamos este argumento, obtendremos un error y no se creará una gráfica.
+Comenzamos con la creación de un histograma usando las edades (**age**) de las personas en nuestro data frame `banco`. Sabemos que **age** es una variable de tipo entero, así que podemos usarla como argumento `x` de `hist()` 
 
-El resto de los argumentos de `plot()` son opcionales, pero el más importante es `y`. Este argumento también requiere un vector y corresponde al **eje Y** de nuestra gráfica. 
-
-Dependiendo del tipo de dato que demos a `x` y `y` será el gráfico que obtendremos, de acuerdo a las siguientes reglas:
-
-`x`       | `y`         | Gráfico
----       |---          |---
-Continuo  | Continuo    | Diagrama de dispersión (*Scatterplot*)
-Continuo  | Discreto    | Diagrama de dispersión, `y` coercionada a numérica
-Continuo  | Ninguno     | Diagrama de dispersión, por número de renglón
-Discreto  | Continuo    | Diagrama de caja (*Box plot*)
-Discreto  | Discreto    | Gráfico de mosaico (Diagrama de Kinneman)
-Discreto  | Ninguno     | Gráfica de barras
-Ninguno   | Cualquiera  | Error
-
-En donde los tipos de dato son:
-
-* **Continuo**: Un vector numérico, entero, lógico o complejo.
-* **Discreto**: Un vector de factores o cadenas de texto.
-
-Además de `plot()`, hay funciones que generan tipos específicos de gráfica. Por ejemplo, podemos crear una gráfica de barras con `plot()` pero existe también la función `barplot()`. También existen también casos como el de los histogramas, que sólo pueden ser creados con la función `hist()`.
-
-Cuando llamas a la función `plot()` o alguna otra similar, R abre una ventana mostrando ese gráfico. Si estás usando RStudio, el gráfico aparece en el panel **Plot**. Si llamas de nuevo la función `plot()`, el gráfico generado más reciente reemplazará al más antiguo y en RStudio se creará una nueva pestaña en en el panel **Plot**. El gráfico reemplazado se perderá.
-
-Por lo tanto, a menos que nosotros los indiquemos, nuestros gráficos se pierden al crear uno nuevo. Al final de este capítulo veremos cómo exportar gráficos de manera más permanente.
-
-## Histogramas
-Un histograma es una gráfica que nos permite observar la distribución de datos numéricos usando barras. Cada barra representa el número de veces (frecuencia) que se observaron datos en un rango determinado.
-
-Para crear un histograma usamos la función `hist()`, que siempre nos pide como argumento `x` un vector numérico. El resto de los argumentos de esta función son opcionales. Si damos un vector no numérico, se nos devolverá un error.
-
-Ya hemos trabajado con esta función en el [capítulo 8](##nuestra-funcion-crear-histograma), pero ahora profundizaremos sobre ella.
-
-Probemos creando un histograma con las edades (*age*) de las personas en nuestro data frame `banco`. Sabemos que *age* 
-
-Daremos como argumento a `hist()` la columna **age** como un vector, extraído de `banco` usando el signo de dolar `$`, aunque también podemos usar corchetes e índices.
+Para ello, extraemos la columna del data frame  `banco` con el signo de dolar `$`, aunque también podemos usar corchetes o índices.
 ```{r hist_age, echo=TRUE}
 hist(x = banco$age)
 ```
 
-Nuestro histograma luce bastante bien para habernos costado tan poco trabajo crearlo, aunque puede mejorar su presentación.
+Nuestro histograma luce bastante bien para habernos costado tan poco trabajo crearlo, aunque puede mejorar su presentación. Para ellos agregamos algunos argumentos a la función `hist()` que modifican sus parámetros gráficos. 
 
-Podemos agregar algunos argumentos a la función `hist()` para modificar ciertos parámetros gráficos. 
+Cambiaremos el título del gráfico con el argumento `main`, y el nombre de los ejes X y Y con `xlab` y `ylab`, respectivamente.
 
-Vamos a cambiar el título del gráfico con el argumento `main`, y el nombre de los ejes X y Y con `xlab` y `ylab`, respectivamente.
-
-Estos argumentos requiere una cadena de texto y pueden agregados también a gráficos generados con `plot()`.
+Estos argumentos requiere una cadena de texto y pueden ser agregados también a gráficos generados con `plot()`.
 ```{r hist_main, echo=TRUE}
-hist(x = banco$age, main = "Histograma de Edad", 
-     xlab = "Edad", ylab = "Frecuencia")
+hist(
+  x = banco$age,
+  main = "Histograma de Edad",
+  xlab = "Edad",
+  ylab = "Frecuencia"
+)
 ```
 
-Probemos cambiando el color de las barras del histograma agregando el argumento `col`. Este argumento acepta nombres de colores genéricos en inglés como "red", "blue" o "purple"; y también acepta colores hexadecimales, como "#00FFFF", "#08001a" o "#1c48b5".
+Cambiaremos el color de las barras del histograma agregando el argumento `col`. Como vimos antes en la sección [sección @sec-graficas-colores], podemos definir colores por nombre o usando códigos hexadecimales.
 
-Puedes ver una lista de los nombres de colores válidos en R en el siguiente enlace:
+Damos el color púrpura (`"purple"`) como argumento para `col`, lo cual cambiará el color de todas las columnas.
 
-* http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
-
-El tema de los colores hexadecimales sale del alcance de este libro, pero en el siguiente enlace encontrarás una *web app* para generar y elegir fácilmente colores de este tipo.
-
-* https://www.w3schools.com/colors/colors_picker.asp
-
-Probemos con columnas de color púrpura ("purple").
 ```{r hist_color, echo=TRUE}
-hist(x = banco$age, main = "Histograma de Edad", 
-     xlab = "Edad", ylab = "Frecuencia",
-     col = "purple")
+hist(
+  x = banco$age,
+  main = "Histograma de Edad",
+  xlab = "Edad",
+  ylab = "Frecuencia",
+  col = "purple"
+)
 ```
 
-Nuestro histograma ya luce presentable.
+Con este cambio nuestro histograma ya luce más presentable.
 
-Creamos ahora un histograma con los mismos argumentos, pero con los datos de la columna "duration", con barras de color marfil ("ivory") y los títulos apropiados.
-```{r}
-hist(x = banco$duration, main = "Histograma de Duration", 
-     xlab = "Duration", ylab = "Frecuencia",
-     col = "ivory")
+Creamos ahora un histograma con los mismos argumentos, pero con los datos de duración (**duration**), con barras de color marfil (`"ivory"`) y los títulos apropiados.
+
+```{r hist_duration}
+hist(
+  x = banco$duration,
+  main = "Histograma de Duration",
+  xlab = "Duration",
+  ylab = "Frecuencia",
+  col = "ivory"
+)
 ```
 
 Como es usual, puedes consultar los demás argumentos de esta función llamando `?hist()`.
 
-## Gráficas de barras
+## Gráficas de barras {#sec-graficas-barras}
+Este es quizás el tipo de gráfico mejor conocido de todos. Una gráfica de barras muestra la frecuencia con la que se ha observado una variable discreta, con una barra para cada categoría de la variable. La función `plot()` puede generar gráficos de barra si damos como argumento `x` un vector de factor sin dar un argumento `y`.
 
-DEBE SER FACTOR
-
-Este es quizás el tipo de gráfico mejor conocido de todos. Una gráfica de este tipo nos muestra la frecuencia con la que se han observado los datos de una variable discreta, con una barra para cada categoría de esta variable.
-
-La función `plot()` puede generar gráficos de barra si damos como argumento `x` un vector de factor o cadena de texto, sin dar un argumento `y`.
-
-Por ejemplo, creamos una gráfica de barras de la variable educación ("education") de `banco`.
+Por ejemplo, creamos una gráfica de barras asignando la variable educación (**education**) de `banco` al argumento `y` de `plot()`.
 
 ```{r barra_plot, echo=TRUE}
 plot(x = factor(banco$education))
 ```
 
-Al igual que con los histogramas, obtenemos un resultado aceptable no obstante el esfuerzo mínimo que hemos hecho para generar nuestra gráfica de barras.
+Al igual que con los histogramas, obtenemos un resultado aceptable con un esfuerzo mínimo, pero podemos mejorar la apariencia de nuestro resultado.
 
-Podemos ajustar los parámetros gráficos con los argumentos `main`, `xlab`, `ylab` y `col`. En este caso, podemos darle a `col` un vector de colores, uno por barra, para que cada una sea distinta.
+Empecemos por ajustar los valores de los argumentos `main` para agregar un título apropiado al gráfico; los argumentos `xlab` y `ylab` para etiquetar los ejes X y Y respectivamente; y el argumento `col` para establecer el color de las columnas. Podemos dar como argumento de `col` un valor único, que sera el color de todas las columnas, o un vector de colores distintos, para que cada columna tenga su propio color diferente.
+
+En este caso, usaremos el vector `c("royalblue", "seagreen", "darkorange", "ivory")` para que cada columna de nuestra gráfica tenga un color diferente.
+
 ```{r bar_col, echo=TRUE}
-plot(x = factor(banco$education), main = "Gráfica de Educacíón",
-     xlab = "Nivel educativo", ylab = "Frecuencia", 
-     col = c("royalblue", "seagreen", "purple", "grey"))
+plot(
+  x = factor(banco$education),
+  main = "Gráfica de Educación",
+  xlab = "Nivel educativo",
+  ylab = "Frecuencia",
+  col = c("royalblue", "seagreen", "darkorange", "ivory")
+)
 ```
 
-La combinación de colores puede mejorar, pero ya tenemos una gráfica de barras presentable.
+La combinación de colores definitivamente puede mejorar, pero ya tenemos una gráfica de barras mucho más presentable.
 
-Sin embargo, hay ocasiones en las que deseamos usar gráficas de barras para presentar proporciones, que deseamos barras apiladas. Para esos casos, usamos la función `barplot()`.
+Sobre el uso de vectores para el argumento `col`, si proporcionas un vector con menos valores que barras en la gráfica, los colores se reciclarán. En la siguiente gráfico sólo damos tres colores, entonces el primer color se repite.
+
+```{r bar_col_3_colores, echo=TRUE}
+plot(
+  x = factor(banco$education),
+  main = "Gráfica de Educación (3 colores)",
+  xlab = "Nivel educativo",
+  ylab = "Frecuencia",
+  col = c("royalblue", "seagreen", "darkorange")
+)
+```
+
+Y si damos un vector con más valores que columnas, sólo se usarán los necesarios para el número de gráficos y los demás serán ignorados.
+
+```{r bar_col_3, echo=TRUE}
+plot(
+  x = factor(banco$education),
+  main = "Gráfica de Educación (colores no usados)",
+  xlab = "Nivel educativo",
+  ylab = "Frecuencia",
+  col = c("royalblue", "seagreen", "darkorange", "ivory3", "pink")
+)
+```
 
 ### La función `barplot()`
-Además de usar `plot()`, podemos crear gráficas de barra con la función `barplot()`.
+Además de usar `plot()`, podemos crear gráficas de barra con la función `barplot()` que además tiene la ventaja de facilitar la creación de gráficas para representar proporciones como barras apiladas.
 
-`barplot` pide como argumento una matriz, que represente una **tabla de contingencia** con los datos a graficar. Este tipo de tablas pueden ser generadas con la función `table()`.
+`barplot()` pide como argumento una matriz, que represente una **tabla de contingencia** con los datos a graficar. Este tipo de tablas pueden ser generadas con la función `table()`, que pide como argumento uno o más vectores, de preferencia variables discretas para evitar un número excesivo de cruces. Si damos sólo un vector como argumento a `table()`, devuelve un conteo, si damos dos o más vectores, devuelve una tabla de contingencia.
 
-`table()` pide como argumento uno o más vectores, de preferencia variables discretas. Si damos sólo un vector como argumento, devuelve un conteo, si damos dos o más variables, devuelve tablas de contingencia.
+Por ejemplo, el conteo de la variable **education**. Además damos `"ifany"` al argumento `useNA` para que nos muestre el conteo de valores `NA` en caso de que los hubiera.
 
-Por ejemplo, el conteo de la variable **education**,
 ```{r educacion_table, echo=TRUE}
-table(banco$education)
+table(banco$education, useNA = "ifany")
 ```
 
-Si damos como argumentos la variable **education** y la variable **loan** (préstamo), obtenemos una tabla de contingencia, que asignaremos al objeto `tab_banco`.
+Si damos como argumentos la variable **education** y la variable que indica si de dió el préstamo (**loan**), obtenemos una tabla de contingencia, que asignaremos al objeto `table_banco`. Como damos primero **loan** esta sera la categoría de los renglones de la tabla de contingencia, mientras que **education** será las columnas.
+
 ```{r eduloan_table, echo=TRUE}
-tab_banco <- table(banco$loan, banco$education)
+table_banco <- table(banco$loan, banco$education, useNA = "ifany")
 
 # Resultado
-tab_banco
+table_banco
 ```
 
-Damos como argumento `tab_banco` a `barplot()` y nos devuelve una gráfica de barras apiladas.
+Al dar como argumento `table_banco` a `barplot()` nos devuelve una gráfica de barras apiladas, donde cada barra es una categoría de **education**, las columnas de la tabla de contingencia, en la que se apilan las categorías de **loan**, los renglones de la tabla de contingencia.
+
 ```{r bar, echo=TRUE}
-barplot(tab_banco)
+barplot(table_banco)
 ```
 
-Si deseamos graficar proporciones en lugar de conteos, usamos la función `prop.table()`. 
+Si deseamos graficar proporciones, en lugar de `table()` usamos la función `prop.table()`. 
 
-Esta función nos pide como argumento una tabla de contingencia generada por `table()`. y un número para `margin`. El argumento `margin` es similar a `MARGIN` de `apply()` (como vimos en el [capítulo 10](###que-es-fun)). 
+Esta función nos pide como argumento una tabla de contingencia generada por `table()`. y un número para `margin`. El argumento `margin` es similar a `MARGIN` de `apply()` que vimos en el [Capítulo @sec-apply-apply-fun].
 
-* Si damos como argumento 1, las proporciones se calcularán agrupadas por renglón. La suma de proporciones por renglón será igual a 1.
-* Si damos como argumento 2, las proporciones se calcularán agrupadas por columna. La suma de proporciones por columna será igual a 1
-* Si no damos ningún argumento, las proporciones se calcularán usando toda la tabla como grupo. La suma de proporciones de todas las celdas en la tabla será igual a 1.
+* Si damos como argumento `1`, las proporciones se calcularán agrupadas por renglón. La suma de proporciones **por renglón** será igual a 1.
+* Si damos como argumento `2`, las proporciones se calcularán agrupadas por columna. La suma de proporciones **por columna** será igual a 1
+* Si no damos ningún argumento, las proporciones se calcularán usando toda la tabla como grupo. La suma de proporciones de **todas las celdas** en la tabla será igual a 1.
 
-Para ilustrar esto, veamos los tres casos para `margin` usando como argumento nuestro objeto `tab_banco`.
-```{r}
+Para ilustrar esto, veamos los tres casos para `margin` usando como argumento nuestro objeto `table_banco`.
+```{r prop_tables}
 # Proporción por renglón
-prop.table(tab_banco, margin = 1)
+prop.table(table_banco, margin = 1)
 
 # Porporción por columna
-prop.table(tab_banco, margin = 2)
+prop.table(table_banco, margin = 2)
 
 # Porporción por tabla
-prop.table(tab_banco)
+prop.table(table_banco)
 ```
 
-Nosotros queremos obtener las proporciones por columna, así que usaremos `margin = 2`.
+Supongamos que nuestro interés es obtener las proporciones por columna, es decir, las categorías de **education**, por tanto usaremos `margin = 2`.
+
 ```{r proptable_bar, echo=TRUE}
-ptab_banco <- prop.table(tab_banco, margin = 2)
+prop_table_banco <- prop.table(table_banco, margin = 2)
 ```
-
 Damos el resultado de la operación anterior a `barplot()`.
 ```{r proptable_barplot, echo = TRUE}
-barplot(ptab_banco)
+barplot(prop_table_banco)
 ```
 
-Hemos obtenido el resultado esperado, pero podemos mejorar la presentación. Nota que con barras apiladas el argumento `col` se puede usar para colorear las categorías al interior de las barras.
+Hemos obtenido el resultado esperado, pero podemos mejorar la presentación. Ten en cuenta que con barras apiladas el argumento `col` se puede usa para colorear las categorías al interior de las barras.
 ```{r barplot_legend, echo=TRUE}
-barplot(ptab_banco,  main = "Préstamos por nivel educativo",
-     xlab = "Nivel educativo", ylab = "Proporción", 
-     col = c("royalblue", "grey"))
+barplot(
+  prop_table_banco,
+  main = "Préstamos por nivel educativo",
+  xlab = "Nivel educativo",
+  ylab = "Proporción",
+  col = c("royalblue", "grey")
+)
 ```
 
-Luce bien, pero tenemos un problema: no sabemos qué representan las categorías en nuestras barras apiladas viendo solamente nuestra gráfica. 
-
-Nosotros podemos consultar directamente con los datos, pero una persona que vea por primera vez esta gráfica no tendrá esa opción, reduciendo con ello su utilidad. 
+Luce bien, pero tenemos un problema: no sabemos qué representan las categorías en nuestras barras apiladas viendo solamente nuestra gráfica. Nosotros tenemos acceso a los datos y podemos consultarlos directamente pero una persona que vea por primera vez esta gráfica no tendrá esa opción con lo que se reduce la utilidad de la gráfica. 
 
 Para solucionar este problema, usamos leyendas.
 
-## Leyendas
-Las leyendas son usadas para identificar con mayor claridad los distintos elementos en un gráfico, tales como colores y formas.
+## Leyendas {#sec-graficas-leyendas}
+Las leyendas son usadas para identificar con mayor claridad los distintos elementos en una gráfica, tales como colores y formas.
 
-En R usamos la función `legend()` para generar leyendas. Esta función debe ser llamada después de crear un gráfico. En cierto modo es una anotación a un gráfico ya existente. `legend()` es una función relativamente compleja, así que sólo revisaremos lo esencial. 
+En R usamos la función `legend()` para generar leyendas y debe ser llamada después de crear una gráfica, esto es, cuando ya tenemos un **device** abierto, pues son un tipo de anotación a un gráfica existente (como vimos en la [sección @sec-graficas-funcionamiento]). Como `legend()` es una función relativamente compleja sólo revisaremos lo esencial para poder darle claridad a nuestras gráficas.
 
 `legend()` siempre nos pide siempre los siguientes argumentos.
 
-* `legend`: Las etiquetas de los datos que queremos describir con la leyenda. Por ejemplo, si tenemos cuatro categorías a describir, proporcionamos un vector de cuatro cadenas de texto.
-* `fill`: Los colores que acompañan a las etiquetas definidas con `legend`. Estos colores tienen que coincidir con los que hemos usado en el gráfico.
-* `x` y `y`: Las coordenadas en pixeles, en las que estará ubicada la leyenda. Podemos dar como argumento a `x` alguno de los siguientes, para ubicar automáticamente la leyenda:  "bottomright", "bottom", "bottomleft", "left", "topleft", "top", "topright", "right", "center".
-* `title`: Para poner título a la leyenda.
+* `legend`: Las etiquetas de los datos que queremos describir. Por ejemplo, si tenemos cuatro categorías a describir, proporcionamos un vector de cuatro cadenas de texto.
+* `fill`: Los colores que acompañan a las etiquetas definidas con `legend`. Estos colores tienen que coincidir, en cantidad y orden, con los que hemos usado en el gráfico para evitar que se reciclen y evitar confusiones.
+* `x` y `y`: Las coordenadas en pixeles, en las que estará ubicada la leyenda. También podemos dar como argumento a `x` alguna de los siguientes cadenas de texto para ubicar automáticamente la leyenda: 
+  * `"bottomright"`: Esquina inferior derecha.
+  * `"bottom"`: Parte inferior, centrada horizontalmente.
+  * `"bottomleft"`: Esquina inferior izquierda.
+  * `"left"`: Parte izquierda, centrada verticalmente.
+  * `"topleft"`": Esquina superior izquierda.
+  * `"top"`: Parte superior, centrada horizontalmente.
+  * `"topright"`: Esquina superior derecha.
+  * `"right"`: Parte derecha, centrada verticalmente.
+  * `"center"`: Centro, centrada horizontal y verticalmente.
+* `title`: Título de la leyenda.
 
-Además, tenemos muchos otros argumentos opcionales, que puedes consultar en la documentación  llamando `?legend()`.
+Además, tenemos muchos otros argumentos opcionales que puedes consultar en la documentación llamando `?legend()`.
 
-Vamos a agregar una leyenda a la última gráfica de barras que creamos en la sección anterior de este capítulo.
+Vamos a agregar una leyenda a la última gráfica de barras que creamos en la sección anterior de este capítulo ([sección @sec-graficas-barras]). Entonces necesitamos conocer las etiquetas que daremos como argumento `legend` y a qué colores corresponden en el vector `banco$loan`.
 
-Entonces necesitamos conocer las etiquetas que daremos como argumento `legend` y a qué colores corresponden al vector `banco$loan`.
-
-Usamos la función `unique` para determinar cuántos valores únicos hay en este vector. Cada uno de estos valores corresponde a una etiqueta. Esta función, si la aplicamos a un vector de tipo factor, nos devuelve sus niveles.
+Usamos la función `unique()` para determinar cuántos valores únicos hay en este vector y cada uno de estos valores corresponde a una etiqueta. Si la aplicamos a 
+un vector de tipo factor, nos devuelve sus niveles.
 ```{r unique_loan, echo?TRUE}
 unique(banco$loan)
 ```
 
-Tenemos dos etiquetas, "no" y "yes" (no y sí, respectivamente), en ese orden, por lo que ese será nuestro argumento `legend`.
+Tenemos dos etiquetas, `"no"` y `"yes"` (no y sí, respectivamente) que serán mostradas en ese orden, por lo que nuestro argumento para `legend` será `c("no", "yes")`.
 
-Nosotros determinamos los colores en la sección anterior como "royalblue" y "grey", en ese orden. Por lo tanto, tendremos que "no" será coloreado con "royalblue", y "yes" con "grey". como vamos a rellenar una barra, esto colores los daremos al argumento `fill`.
+En la sección anterior elegimos los colores `"royalblue"` y `"grey"` en ese orden, por lo tanto, `"no"` será coloreado con `"royalblue"` y `"yes"` con `"grey"`. Entonces, daremos estos colores como argumento `fill` con el vector `c("royalblue", "grey")`.
 
-Por último, daremos como "topright" como argumento `x` para que nuestra leyenda se unique en la parte superior derecha de nuestro gráfico.
+Por último, daremos como `"topright"` como argumento `x` para que nuestra leyenda se unique en la esquina superior derecha de nuestra gráfica.
 
-Aplicamos todo, incluido generar el gráfico al que agregaremos la leyenda.
-```{r leyenda, echo = TRUE}
-barplot(ptab_banco,  main = "Préstamos por nivel educativo",
-     xlab = "Nivel educativo", ylab = "Proporción", 
-     col = c("royalblue", "grey"))
-legend(x = "topright", legend = c("No", "Yes"), fill = c("royalblue", "grey"), 
-       title = "Loan")
+Aplicamos todo, incluido generar la gráfica al que agregaremos la leyenda, pues si intentamos llamar a `legend()` sin haber abierto primero un **device**, nos devolverá un error.
+
+```{r legend_error, echo = TRUE}
+#| error: True
+legend(
+  x = "topright",
+  legend = c("No", "Yes"),
+  fill = c("royalblue", "grey"),
+  title = "Se dió el préstamo"
+)
 ```
 
-Se ve mucho más clara la información, pues ahora estamos mostrando a qué categoría corresponden los colores que hemos empleado en el gráfico.
+Al llamar primero a la función `barplot()` para iniciar una gráfica y abrir un **device** y después la función `legend()` se mostrará correctamente la leyendo que deseamos agregar.
 
-En las secciones siguientes agregaremos leyendas a otros gráficos, con lo cual quedará un poco más claro el uso de `legend()`.
+```{r leyenda, echo = TRUE}
+barplot(
+  prop_table_banco,
+  main = "Préstamos por nivel educativo",
+  xlab = "Nivel educativo",
+  ylab = "Proporción",
+  col = c("royalblue", "grey")
+)
+legend(
+  x = "topright",
+  legend = c("No", "Yes"),
+  fill = c("royalblue", "grey"),
+  title = "Se dió el préstamo"
+)
+```
 
-## Diagramas de dispersión
-Este tipo de gráfico es usado para mostrar la relación entre dos variables numéricas continuas, usando puntos. Cada punto representa la intersección entre los valores de ambas variables.
+Con esta anotación es mucho más clara la información, pues se muestra a qué categoría corresponden los colores que hemos empleado en la gráfica.
 
-Para generar un diagrama de dispersión, damos vectores numéricos como argumentos `x` y `y` a la función `plot()`.
+En las secciones siguientes agregaremos leyendas a otros gráficos, con lo cual verás más ejemplo de uso de la función `legend()`.
 
-Veamos la relación entre las variables **age** y **balance** de `banco`.
+## Diagramas de dispersión {#sec-graficas-dispersion}
+Este tipo de gráfico es usado para mostrar la relación entre dos variables numéricas continuas usando puntos. Cada punto representa la intersección entre los valores de ambas variables.
+
+Para generar un diagrama de dispersión, damos vectores de tipo entero o numérico como argumentos `x` y `y` a la función `plot()`.
+
+Veamos la relación entre las variables de edad (**age**) y saldo (**balance**) del data frame `banco`.
 ```{r scatter, echo=TRUE}
 plot(x = banco$age, y = banco$balance)
 ```
 
-Tenemos algunos datos extremos tanto en **balance**. Para fines de tener una gráfica más informativa, vamos a recodificarlos usando `ifelse()`, cambiando todos los valores mayores a 15 000.
+Tenemos algunos datos extremos (outliers) tanto en **balance**. Para fines de este ejemplo, vamos a recodificarlos usando `ifelse()`, cambiando todos los valores mayores de 15 000 a 15 000. En la práctica, la decisión de qué hacer con datos extremos es más complicada que esto, pues depende del origen de los datos, los propósitos del análisis y el tipo de operaciones que se desee hacer con los datos.
+
 ```{r recode_banco, echo=TRUE}
 banco$balance <- ifelse(banco$balance > 15000, 15000, banco$balance)
 ```
+
+Hecha la recodificación, generamos de nuevo la gráfica.
 
 ```{r scatter_recode, echo=TRUE}
 plot(x = banco$age, y = banco$balance)
 ```
 
-En los diagramas de dispersión, podemos usar el argumento `col` para camiar el color de los puntos usando como referencia una tercera variable.
-
-La variable que usaremos será, de nuevo, **loan**.
-
-COLORES_APROPIADOS
+En los diagramas de dispersión usamos el argumento `col` para cambiar el color de los puntos. En este ejemplo usaremos los colores `"black"` y `"red"`, negro y rojo, respectivamente, con el vector `c("black", "red")`.
 
 ```{r, scatter_recode_colors, echo = TRUE}
-#plot(x = banco$age, y = banco$balance, col= banco$loan)
-plot(x = banco$age, y = banco$balance, col= c("red", "blue"))
+plot(x = banco$age, y = banco$balance, col = c("black", "red"))
 ```
 
-Nos sería de utilidad una leyenda para interpretar más fácilmente los colores. 
-
-Ya sabemos que los niveles de **loan** son "no" y "yes", además de que los colores han sido rojo y negro, así que agregar una leyenda será relativamente fácil.
+Nos sería de utilidad una leyenda para interpretar más fácilmente los colores y como sabemos que los niveles de **loan** son `"no"` y `"yes"`, podemos asignarles también los colores rojo y negro, además de que también definimos `"Se dió el préstamo"` como `title`.
 
 ```{r legend, echo=TRUE}
-plot(x = banco$age, y = banco$balance, col= c("black", "red"))
-legend(x = "topleft", legend = c("No", "Yes"), fill = c("Black", "Red"), title = "Loan")
+plot(x = banco$age, y = banco$balance, col = c("black", "red"))
+legend(
+  x = "topleft",
+  legend = c("No", "Yes"),
+  fill = c("Black", "Red"),
+  title = "Se dió el préstamo"
+)
 ```
 
-Desafortunadamente esta gráfica no es muy informativa para nuestros datos. Por fortuna, podemos probar con un conjunto de datos diferente.
+Desafortunadamente esta gráfica no es muy informativa por las características de nuestros datos, pero podemos probar con otros distintos. Si usamos diagramas de dispersión con el conjunto `iris` obtendremos gráficos mucho más interesantes que nos permiten entender mejor sus datos de un vistazo.
 
-Si usamos diagramas de dispersión con `iris` obtendremos gráficos mucho más interesantes. 
+Creamos un gráfico con las medidas de pétalo, las columnas **Petal.Lenght** y **Petal.Width**, aplicando lo que hemos visto hasta ahora para generar diagramas de dispersión.
 
-Creamos un gráfico con las medidas de pétalo, aplicando lo que hemos visto para generar diagramas de dispersión.
 ```{r irisscatter, echo=TRUE}
-plot(x = iris$Petal.Length, y = iris$Petal.Width, col = iris$Species, 
-     main = "Iris - Pétalo", xlab = "Largo", ylab = "Ancho")
-legend(x = "topleft", legend = c("Setosa", "Versicolor", "Virginica"), 
-       fill = c("black", "red", "green"), title = "Especie")
+plot(
+  x = iris$Petal.Length,
+  y = iris$Petal.Width,
+  col = c("purple", "red", "green"),
+  main = "Iris - Pétalo",
+  xlab = "Largo",
+  ylab = "Ancho"
+)
+legend(
+  x = "topleft",
+  legend = c("Setosa", "Versicolor", "Virginica"),
+  fill = c("purple", "red", "green"),
+  title = "Especie"
+)
 ```
 
-## Diagramas de caja
-Los diagrama de caja, también conocidos como de caja y bigotes son gráficos que muestra la distribución de una variable usando cuartiles, de modo que de manera visual podemos inferir algunas cosas sobre su dispersión, ubicación y simetría.
+## Diagramas de caja {#sec-graficas-boxplot}
+Los diagramas de caja, también conocidos como de caja y bigotes, son gráficos que muestran la distribución de una variable continua usando cuartiles, de modo tal que podemos inferir su dispersión, ubicación y simetría. Una ventaja de este tipo de gráfico es que podemos comparar la distribución de una misma variable para diferentes grupos.
 
-Una gráfica de este tipo dibuja un rectángulo cruzado por una línea recta horizontal. Esta linea recta representa la mediana, el segundo cuartil, su base representa el primer cuartil y su parte superior el tercer cuartil. Al rango entre el primer y tercer cuartil se le conoce como intercuartílico (RIC). Esta es la caja.
+::: {.callout-tip title="Cuartiles y rango intercuartílico"}
+Los **cuartiles** son valores que dividen a una serie de datos continuos en cuatro partes exactamente iguales. Una cuarta parte de los datos (25%) son menores o iguales al valor primer cuartil (Q1), la mitad de los datos (50%) son menores o iguales valor del segundo cuartil (Q2 o la mediana), tres cuartas partes de los datos (75%) son menores o iguales al valor del tercer cuartil (Q3), y todos los datos (100%) son menores o iguales al valor del cuarto cuartil (Q4).
 
-Además, de la caja salen dos líneas. Una que llega hasta el mínimo valor de los datos en la variable o hasta el primer cuartil menos hasta 1.5 veces el RIC; y otra que llegar hasta el valor máximo de los datos o el tercer cuartil más hasta 1.5 veces el RIC. Estos son los bigotes.
+El **rango intercuartílico** (RIC) es la distancia que hay entre el primer cuartil (Q1) y el tercer cuartil (Q3), allí se sitúan la mitad de los datos (50%).
+:::
 
-Usamos la función `plot()` para crear este tipo de gráfico, dando como argumento `x` un vector de factor o cadena de texto, y como argumento `y` un vector numérico.
+Una gráfica de este tipo dibuja un rectángulo, la caja, cruzado por una línea recta horizontal. Esta linea recta representa la mediana, el segundo cuartil, su base representa el primer cuartil y su parte superior el tercer cuartil. El área del rectángulo cubre el rango intercuartílico (RIC).
 
-Una ventaja de este tipo de gráfico es que podemos comparar las distribución de una misma variable para diferentes grupos.
+De parte inferior y superior de la caja salen dos líneas, llamados bigotes. Una que llega hasta el  valor mínimo de los datos de la variable o hasta el primer cuartil menos hasta 1.5 veces el RIC; y otra que llega hasta el valor máximo de los datos o el tercer cuartil más hasta 1.5 veces el RIC.
 
-Vamos a ver cómo se distribuye la edad por nivel de educación en nuestro objeto `banco`, esto es, las variables **education** y  **age**.
+Usamos la función `plot()` para crear este tipo de gráfico, dando como argumento para `x` un vector de tipo factor y como argumento para `y` un vector de tipo numérico. 
 
-COMO FACTOR
+Veamos cómo se distribuye la edad (**age**) por nivel de educación (**education**) en nuestro data frame `banco`, esto es, las variables. Como necesitamos que **education** sea un factor usamos la función `factor()`.
 
 ```{r boxplot_plot, echo=TRUE}
 plot(x = factor(banco$education), y = banco$age)
@@ -345,96 +539,173 @@ plot(x = factor(banco$education), y = banco$age)
 
 Podemos ver que las personas con menor nivel educativo tienden a tener una edad mayor. La mayoría de las personas con educación primaria tienen entre 40 y 50 años, mientras que la mayoría con educación terciaria tiene entre 35 y 45 años, aproximadamente.
 
-Por supuesto, podemos cambiar los parámetros gráficos a un diagrama de caja.
+Por supuesto, podemos cambiar los parámetros gráficos de un diagrama de caja como lo hemos hecho con los demás gráficos. En este caso, con el argumento `col` establecemos el color de relleno de las cajas. Vamos a definir además el título (`main`) y etiquetas de los ejes X (`ylab`) y Y (`xlab`).
+
 ```{r boxplot_leyenda, echo=TRUE}
-plot(x = factor(banco$education), y = banco$age, main = "Edad por nivel educativo", 
-     xlab = "Nivel educativo", ylab = "Edad", 
-     col = c("orange3", "yellow3", "green3", "grey"))
+plot(
+  x = factor(banco$education),
+  y = banco$age,
+  main = "Edad por nivel educativo",
+  xlab = "Nivel educativo",
+  ylab = "Edad",
+  col = c("#ffca3a", "#8ac926", "#1982c4", "#6a4c93")
+)
 ```
 
-También podemos crear diagramas de caja con la función `boxplot()`.  Esta función puede generar diagramas de caja de dos maneras distintas.
+También podemos crear diagramas de caja con la función `boxplot()`, que tiene dos formas para generar gráficas.
 
-En la primera manera, si damos como argumento `x` un vector numérico, nos dará un diagrama de caja de esa variable.
+La primera forma consiste en dar un vector de tipo numérico al argumento `x`, esto nos devolverá el diagrama de caja de esa variable.
 ```{r boxplot_x, echo=TRUE}
 boxplot(x = banco$age)
 ```
 
-En la segunda manera necesitamos dar dos argumentos:
+Ña segunda manera necesita dos argumentos:
 
-* `formula`: Para esta función las fórmulas tienen el formato `y ~ x`, donde x es el nombre de la variable continua a graficar, y la x es la variable que usaremos como agrupación.
-* `data`: Es el data frame del que serán tomadas las variables.
+* `formula`: Para esta función las fórmulas tienen el formato `y ~ x`, donde:
+  * `y` es el nombre de la variable continua a graficar, sin comillas.
+  * `x` es el nombre de la variable de agrupación, sin comillas.
+  * `~` es la tilde que indica a R la presencia de una fórmula y cuáles nombres de varibles forman parte de ella. Una fómula está formada por un lado izquierdo (LHS, por sus siglas en inglés), con todo lo escrito a la izquierda de la tilde, y un lado derecho (RHS, por sus siglas en inglés), con todo lo escrito a la derecha de la tilde.
+* `data`: Es el data frame del que serán tomadas las nombres variables.
 
-Por ejemplo, para mostrar diagramas de caja por nivel educativo, nuestra variable y es **age** y nuestra variable x es **education**, por lo tanto, `formula` será `age ~ education`.
+::: {.callout-note title="Fórmulas"}
+Las fórmulas en R tiene varios usos pero el más común es en modelos de regresión, donde el lado izquierdo de la formula, a la izquierda la tilde `~` (LHS), representa la variable dependiente `y`, mientras que el lado de derecho de la formula (RHS), a la derecha de la tilde `~`, representa las variables indepentes.
+:::
+
+Para mostrar diagramas de caja por nivel educativo, nuestra variable `y` será la edad (**age**) y nuestra variable `x` será el nivel educativo (**education**), por lo tanto, la `formula` será igual a `age ~ education`. Nota que ni la formula ni ninguno de sus elementos lleva comillas.
+
 ```{r boxplot_formula, echo=TRUE}
-boxplot(formula = age ~ education, data =  banco)
+boxplot(formula = age ~ education, data = banco)
 ```
 
+Al igual que con la función `plot()` podemos cambiar el título, etiqueta de los ejes y color de relleno de las cajas con los argumentos `main`, `xlab`, `ylab` y `col`, respectivamente
 
-## Gráficos de mosaico
-Los gráficos de mosaico o diagramas de Marimekko son usados para mostrar la relación entre dos variables discretas, ya sean factores o cadenas de texto.
+```{r boxplot_colores}
+boxplot(formula = age ~ education, data = banco, main = "Edad por nivel educativo",
+  xlab = "Nivel educativo",
+  ylab = "Edad",
+  col = c("#ffca3a", "#8ac926", "#1982c4", "#6a4c93"))
+```
 
-Este tipo de gráfico recibe su nombre porque consiste en una cuadricula, en la que cada rectángulo representa el numero de casos que corresponden a un cruce específico de variables. Entre más casos se encuentren en ese cruce, más grande será el rectángulo.
+## Gráficos de mosaico {#sec-graficas-mosaico}
+Los gráficos de mosaico o diagramas de Marimekko son usados para mostrar la relación entre dos variables discretas.
 
-Para obtener un gráfico de mosaico, damos como vectores de factor o cadena de texto como argumentos `x` y `y` a la función `plot()`.
+Este tipo de gráfica consiste en una cuadricula en la que cada rectángulo representa el numero de casos que corresponden a un cruce específico de variables, entre más casos se encuentren en ese cruce más grande será el rectángulo. Se les llama diagramas de Marimekko porque su aspecto es similar a los diseños de la empresa [Marimekko](https://www.marimekko.com/) de Finlandia, reconocida por sus diseños de textiles con formas simples y colores sólidos e intensos.
 
-Por ejemplo, intentemos graficar el estado marital con el nivel educativo de las personas en `banco`
+![Ejemplo de diseños de Marimekko (imagen de [Sara Stierch](https://commons.wikimedia.org/wiki/File:Surf_Market_-_April_2023_-_Sarah_Stierch_05.jpg)).](images/ejemplo_marimekko.jpg)
+
+Para obtener un gráfico de mosaico usamos la función `plot()` y damos vectores de factor como argumentos para `x` y `y`.
+
+Crearemos una gráfica que muestre la relación entre el estado marital (**marital**) y el nivel educativo (**education**) de las personas en el conjunto de datos `banco`. Como necesitamos que ambas variables sean factores usamos la función `factor()`.
+
 ```{r mosaico, echo =TRUE}
 plot(x = factor(banco$marital), y = factor(banco$education))
 ```
 
-Podemos cambiar el color de los mosaicos con el argumento `col`. Debemos proporcionar un color por cada nivel del vector en el eje Y.
+Podemos cambiar el color de los mosaicos con el argumento `col`, que cambiará el color de acuerdo con el vector que demos en el argumento `y`. En este caso tenemos la variable **education** con cuatro niveles, por lo que proporcionamos cuatro códigos de color.
+
 ```{r mosaico_color, echo =TRUE}
-plot(x = factor(banco$marital), y = factor(banco$education), 
-     col = c("#99cc99", "#cc9999", "#9999cc", "#9c9c9c"))
+plot(
+  x = factor(banco$marital),
+  y = factor(banco$education),
+  col = c("#ffca3a", "#8ac926", "#1982c4", "#6a4c93")
+)
 ```
 
-De esta manera es más claro que el grupo más numeroso de personas son las casadas con educación secundaria y el más pequeño, divorciadas con educación primaria.
+De esta manera es más claro que el grupo más numeroso de personas son las casadas (*married*) con educación secundaria (*secondary*) y el más pequeño, divorciadas (*divorced*) con educación primaria (*primary*).
 
-## Exportar gráficos
-Exportar los gráficos que hemos creado es un proceso que puede parecer un poco confuso.
+## Exportar gráficas {#sec-graficas-exportar}
+Exportar las gráficas que hemos creado es un proceso que en un principio puede parecer un poco confuso porque no hay una función única para hacerlo. 
 
-Cuando llamamos una de estas funciones, le estamos indicando a R que "mande" nuestro gráfico a un **dispositivo gráfico** (*graphic device*) en nuestra computadora, donde podemos verlo, que por defecto es **una ventana en nuestro escritorio** o el panel **Plot** si estás usando *RStudio*.
+Para exportar una gráfica llamamos funciones para que R abra un archivo como para ser usado como **device** en el que dibujará nuestra gráfica. Una vez dibujada la gráfica, cerramos el **device** para que en el archivo sea guardado lo que hemos dibujado en él hasta es emomento, como lo vimos en la[sección @sec-graficas-funcionamiento].
 
-Una consecuencia de esto es que si creas y lo mandas a un dispositivo gráfico en uso, el gráfico nuevo reemplazará al anterior. Por ejemplo, si usas `plot()` para crear un gráfico, se mostrará en una ventana de tu escritorio, pero si usas `plot()` de generar un gráfico distinto, el contenido de esta ventana será reemplazada con este nuevo gráfico. Lo mismo pasa con todos los dispositivos gráficos.
+Además, las gráficas generadas con `plot()` y funciones similares no pueden ser guardados en un objetos para después ser exportadas, deben ser guardadas cuando aún existen en la memoria de R.
 
-Además, los gráficos no pueden ser guardados en un objetos para después ser exportados. Es necesario mandar nuestros gráficos a un dispositivo como JPG, PNG o algún otro tipo de archivo que pueda ser almacenado en nuestro disco duro.
-
-Para exportar un gráfico usamos alguna de las siguientes funciones, cada una corresponde con un tipo de archivo distinto. No son las únicas, pero son las más usadas. 
+Entre las funciones que tenemos para exportar gráficos tenemos las siguientes, que corresponden a diferentes tipos de archivo de archivo distinto. No son las únicas que existen, pero son las que probablemente encuentres con más frecuencia.
 
 * `bpm()`
 * `jpeg()`
 * `pdf()`
 * `png()`
 * `tiff()`
+* `svg()`
 
-Cada una de estas funciones tiene los siguientes argumentos tres argumentos principales.
+Todas estas funciones tienen tres argumentos principales.
 
-* `filename`: El nombre y ruta del archivo de imagen a crear. Si no especificamos una ruta completa, entonces el el archivo será creado en nuestro directorio de trabajo.
-* `width`: El **ancho** del archivo de imagen a crear, por defecto en pixeles.
-* `height`: El **alto** del archivo de imagen a crear, por defecto en pixeles.
+* `filename`: Una cadena de texto con el nombre del archivo de imagen a crear.
+  * Podemos indicar una ruta absoluta para el archivo como `"C:/mis_documentos/gráficas/mi_gráfica.png"`, pero si no lo hacemos el archivo será creado en nuestro directorio de trabajo; por ejemplo, si nuestro directorio de trabajo es **C:/mi_proyecto** y damos como `filename` la cadena de texto `"mi_gráfica.png"`, esta se encontrará en **C:/mi_proyecto/mi_gráfica.png**. Debemos dar una ruta válida, particularmente que haga referencia a carpetas que ya existen, si damos como `filename` la cadena de texto `"gráficas/mi_gráfica.png"` y la carpeta **gráficas** aún no existe, se nos devolverá un error.
+  * La extensión del nombre del archivo debe coincidir con la función que llamemos, por ejemplo, si llamamos `jpg()`, el nombre de archivo debe tener extensión **.jpg**, `"mi_gráfica.jpg"`, de lo contrario se creará un archivo pero no no podremos abrirlo correctamente.
+* `width`: Un dato de tipo numérico que indica el **ancho** del archivo de imagen a crear. Por defecto, la unidad del ancho son **pixeles**, excepto para `pdf()` y `svg()`, que son **pulgadas**.
+* `height`: Un dato de tipo numérico que indica el **alto** del archivo de imagen a crear. Por defecto, la unidad el alto por defecto son **pixeles**, excepto para `pdf()` y `svg()`, que son **pulgadas**.
 
-La manera de utilizar estas funciones llamándolas **antes** de llamar a una función que genere una gráfica. Al hacer esto, le indicamos a R que en lugar de mandar nuestro gráfico a una ventana del escritorio, lo mande a un dispositivo gráfico distinto.
+Además, para las funciones `bpm()`, `jpeg()`, `png()` y `tiff()` tenemos un par de argumentos que son últiles para controlar el tamaño y calidad de la imagen.
 
-Finalmente, llamamos a la función `dev.off()`, para cerrar el dispositivo gráfico que hemos elegido, de este modo se creará un archivo y podremos crear más gráficos después.
+* `units`: Una cadena de texto para establecer las unidades de `width` y `height`, puede ser `"px"` para pixeles, `"mm"` para milímetros, `"cm"` para centímetros y `"in"` para pulgadas.
+* `res`: Un entero para establecer los puntos por pulgada (ppi) de la imagen. Por defecto son `72`, pero para impresión es recomendable `300` o al menos `150`, sin embargo, entre más grande es la cantidad de puntos por pulgada, es necesario que `width` y `height` sean mayores o no habrá suficiente espacio para dibujar todos los pixeles en el área disponible y los elementos se sobreprondran entre sí. Para `res` igual a o mayor a `150`, un `width` y `height` de al menos `1080` es apropiado.
 
-Por ejemplo, para exportar un gráfico con leyenda como un archivo PNG llamamos lo siguiente. Nota que tenemos que dar la misma extensión de archivo que la función que estamos llamando, en este caso **.png**.
-```{r crear_png, echo=TRUE}
+Usamos estas funciones antes **antes** de llamar a la función `plot()` o cualquier otra que inicie una gráfica, pues necesitamos que indicarle a R que abra un archivo como **device** y que sea allí donde se dibuje nuestra gráfica. En consecuencia, las gráficas que generemos después de llamar a estas funciones **no se mostrarán** en una ventana o en los páneles **Plots** de Positron o RStudio, por lo que es recomendable que generes y ajustes tus gráficas hasta que te sientas satisfecha o satisfecho con ellas antes de exportarlas a archivos.
+
+Una vez abierto un archivo como **device**, llamamos a la función `plot()` o cualquier otra que inicie una gráfica, seguida de las funciones que agregan elementos como es el caso de `legends()`.
+
+Finalmente, llamamos a la función `dev.off()`, para cerrar el **device** y con ello se guardará en el archivo la gráfica que que hemos generado. Si antes de cerrar el **device** iniciamos otra gráfica, entonces la gráfica que se guardará en el archivo será la última generada antes de cerrarlo.
+
+Vamos a exportar una gráfica con leyenda a un archivo de imagen PNG, para ello usaremos la función `png()`.
+
+Primero llamamos a la función `png`. Damos la cadena de texto `"loan_age.png"` como argumento `filename`, de modo que la el archivo creado se encontrará en nuestra carpeta de trabajo. También establecemos  `widht = 800` y `height = 600` para que nuestra gráfica tenga 800 pixeles de ancho y 600 pixeles de alto.
+
+```{r crear_png_png, echo=TRUE}
 png(filename = "loan_age.png", width = 800, height = 600)
-plot(x = banco$age, y = banco$duration, col = c("Black", "Red"), 
-     main = "Edad y Duración", xlab = "Edad", ylab = "Duración")
-legend(x = "top", legend = c("No", "Yes"), fill = c("Black", "Red"), 
-       title = "Loan")
+```
+
+Llamamos a la función `plot()` seguida de `legend()` para replicar el gráfico de dispersión que hemos creado en la [sección @sec-graficas-dispersion].
+
+```{r crear_png_plot, echo=TRUE}
+plot(
+x = banco$age,
+  y = banco$duration,
+  col = c("Black", "Red"),
+  main = "Edad y Duración",
+  xlab = "Edad",
+  ylab = "Duración"
+)
+legend(
+  x = "top",
+  legend = c("No", "Yes"),
+  fill = c("Black", "Red"),
+  title = "Loan"
+)
+```
+
+Finalmente, cerramos el **device**, nuestro archivo de imagen PNG, con la función `dev.off()`.
+
+```{r crear_png_devoff, echo=TRUE}
 dev.off()
 ```
 
-Si aparece un mensaje como el siguiente, es que hemos tenido éxito.
+Si aparece en la consola un mensaje parecido a los siguientes es que hemos tenido éxito, pues nos indica que el **device** usado se ha cerrado con éxito.
 
->null device 
-          1 
+>png 1
 
-Podemos ver el resultado usando `file.show()`.
-```{r, echo=TRUE, eval=FALSE}
-file.show("loan_age.png")
+>null device 1 
+
+Es posible exportar gráficos a un archivo PDF, que tiene la ventaja de capturar los elementos de texto en un formato que puede seleccionarse o editar en un programa para manipular archivos de este tipo. Nota que cambiamos los argumentos `width` y `height`, pues la unidad para este tipo de archivo son **pulgadas**.
+
+```{r crear_pdf, echo=TRUE}
+pdf("marimekko.pdf", width = 5, height = 5)
+plot(
+  x = factor(banco$marital),
+  y = factor(banco$education),
+  col = c("#ffca3a", "#8ac926", "#1982c4", "#6a4c93")
+)
+dev.off()
 ```
 
-De esta manera podemos exportar cualquier tipo de gráfico generado con R.
+Podemos abrir los archivos que hemos generado directament en R usando la función `file.show()` a la que le damos como argumento la cadena de texto con la ruta del deseo que deseamos abrir.
+
+```{r file_show, echo=TRUE, eval=FALSE}
+# Para abrir el archivo PNG que creamos
+file.show("loan_age.png")
+# Para abrir el archivo PDF que creamos
+file.show("marinekko.pdf")
+```
+
+Con el procedimiento anterior podrás exportar cualquier tipo de gráfico generado con R.

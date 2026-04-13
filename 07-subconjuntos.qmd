@@ -49,7 +49,7 @@ Y la secuencia del 3 al 25
 un_vector[2:4]
 ```
 
-Para extraer múltiples elementos no es necesario que estos estén uno al lado del otro en la estructura de datos, podemos elegir posiciones específicas usando vectores. Si queremos extrar el primer y cuarto elenmento hacemos lo siguiente.
+Para extraer múltiples elementos no es necesario que estos estén uno al lado del otro en la estructura de datos, podemos elegir posiciones específicas usando vectores. Si queremos extraer el primer y cuarto elemento hacemos lo siguiente.
 
 ```{r ejemplo_indice_vector}
 un_vector[c(1, 4)]
@@ -67,7 +67,7 @@ class(una_lista[1])
 
 Aunque el primer elemento de la lista es un vector de tipo cadena de texto, nuestro resultado es una lista de extensión que lo contiene como único elemento.
 
-Esto nos muestra que el uso de índices tiene consideradores particulares para las distintas estructuras de datos, así que revisaremos este procedimiento para cada una de ellas.
+Esto nos muestra que el uso de índices tiene consideraciones particulares para las distintas estructuras de datos, así que revisaremos este procedimiento para cada una de ellas.
 
 ### Vectores
 
@@ -445,7 +445,7 @@ class(mi_df$nombre)
 
 Esta es una característica distintiva de este método, **al usar el signo `$` para extraer un elemento de un data frame o una lista, obtenemos un objeto de la clase que ese elemento era originalmente**.
 
-Recuerda que **un data frame está formado por vectores**. Como vimos en el [capítulo 6](##data-frames), una manera de generar data frames es combinar vectores. Estos vectores, aunque estén contenidos dentro de un data frame, conservan todas las características de un vector y es posible extraerlos como tales.
+Recuerda que **un data frame está formado por vectores**. Como vimos en el [Capítulo @sec-estructuras-dataframes], una manera de generar data frames es combinar vectores. Estos vectores, aunque estén contenidos dentro de un data frame, conservan todas las características de un vector y es posible extraerlos como tales.
 
 Cuando usamos el signo `$`, le pedimos a R que extraiga de un objeto un subconjunto con sus propiedades originales. Por esta razón, para los data frame, siempre son devueltos vectores, mientras que para las listas lo que obtenemos depende del tipo de objeto contenido en ellas.
 
@@ -555,7 +555,7 @@ Dado lo anterior, podemos extraer subconjuntos de subconjuntos combinando difere
 # Subconjunto de un subconjunto: Data frame.
 mi_df[[2]][3]
 
-# Subconjunto de un subcojunto: Lista.
+# Subconjunto de un subconjunto: Lista.
 mi_lista[["cuatro"]][2]
 ```
 
@@ -565,7 +565,7 @@ No te preocupes mucho si lo anterior te parece confuso, lo es. No profundizaremo
 
 Las condicionales nos permiten obtener subconjuntos que para los que una o más condiciones son verdaderas (`TRUE`).
 
-Para este procedimiento usamos operadores lógicos y condicionales, como revisamos en el [capítulo 5](#operadores) y lo podemos aplicar a **data frames**.
+Para este procedimiento usamos operadores lógicos y condicionales, como revisamos en el [Capítulo @sec-operadores] y lo podemos aplicar a **data frames**.
 
 Con este procedimiento, podemos extraer todos los datos de una encuesta que corresponden a mujeres, o a personas que viven en una entidad específica, o que tienen un ingreso superior a la media, o cualquier otra condición que se verificable con **álgebra Booleana**.
 
@@ -588,7 +588,7 @@ Dentro del corchete escribimos, antes de una coma, el código para obtener un su
 
 Este primer subconjunto debe ser extraído con alguno de los dos procedimientos que da como resultado un vector, ya sea el signo `$` o corchetes dobles `[[]]`.
 
-Necesitamos extraer un vector, porque aplicaremos a todos los elementos de esa columna una operación relacional, usando vectorización, como lo vimos en el [capítulo 6](###vectorizacion-de-operaciones).
+Necesitamos extraer un vector, porque aplicaremos a todos los elementos de esa columna una operación relacional, usando vectorización, como lo vimos en el [Capítulo @sec-estructuras-vector].
 
 Todos los elementos para los que el resultado de esta operación sea **TRUE**, formarán parte de nuestro subconjunto usando condicionales. Como cada elemento de una columna de un data frame está ubicado en su propio renglón, podemos decir que nos serán devueltos los renglones para los que la condición sea verdadera.
 

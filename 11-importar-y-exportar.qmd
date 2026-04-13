@@ -291,7 +291,7 @@ R *base* no tiene una función para importar archivos almacenados en archivos co
 
 Para importar datos desde este tipo de archivos, necesitamos instalar el paquete **readxl**, que contiene funciones específicas para realizar esta tarea.
 
-Usamos la función `installpackages()`, como lo vimos en el [capítulo 3](##paquetes)
+Usamos la función `install.packages()`, como lo vimos en el [capítulo 3](##paquetes)
 ```{r instalar readxl, echo =TRUE, eval=FALSE}
 install.packages("readxl")
 ```
